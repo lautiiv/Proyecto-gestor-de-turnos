@@ -13,3 +13,5 @@ config.ini
 *.env
 
 __init__
+
+test_config.ini
