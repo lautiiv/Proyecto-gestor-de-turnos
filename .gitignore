@@ -12,3 +12,4 @@ config.ini
 *.ini
 *.env
 
+__init__

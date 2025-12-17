@@ -1,5 +1,5 @@
 class Paciente:
-    def __init__(self,id_paciente,nombre,apellido,edad,obra_social,telefono):
+    def __init__(self,nombre,apellido,edad,obra_social,telefono,id_paciente = None):
         
         self.__id_paciente = id_paciente
         self.__nombre = nombre
@@ -53,4 +53,5 @@ class Paciente:
     def telefono(self,nuevo_telefono):
         self.__telefono = nuevo_telefono
     
-    
+    def __str__(self):
+        return f'== DATOS PACIENTE ==\nNOMBRE: {self.nombre}\nAPELLIDO: {self.apellido}\nEDAD:{self.edad}\nOBRA SOCIAL: {self.obra_social}\n Telefono: {self.telefono}\n ID: {self.id_paciente}'

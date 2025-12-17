@@ -1,3 +1,32 @@
+from dao.paciente_dao import PacienteDAO
+from dominio.paciente import Paciente
+from db.db_conn import DBConn
+
+#paciente_prueba = Paciente("Candela","Pellegrino",27,'MET',"2954446270")
+
+db = DBConn(config_file="./config.ini")
+dao = PacienteDAO(db)
+
+
+nombre = "Lautaro"
+apellido = "Villafa"
+edad  = 27
+obra_social = "boreal"
+telef = "2999999"
+
+paciente_prueba2 = Paciente(nombre, apellido, edad, obra_social, telef)
+#print(paciente_prueba2)
+#dao.registrar_paciente(paciente_prueba2)
+#dao.eliminar_paciente(3)
+#print("eliminado con exito")
+
+dao.mostrar_paciente_por_id(2)
+
+
+print("Hola xd")
+
+dao.mostrar_todos_pacientes()
+'''
 def main_menu():
     try:
         while True:
@@ -103,4 +132,4 @@ def turnos_menu():
 main_menu()
           
 
-         
+'''
