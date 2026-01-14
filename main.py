@@ -7,7 +7,7 @@ from db.db_conn import DBConn
 db = DBConn(config_file="./config.ini")
 dao = PacienteDAO(db)
 
-
+'''
 nombre = "Lautaro"
 apellido = "Villafa"
 edad  = 27
@@ -27,6 +27,8 @@ print("Hola xd")
 
 dao.mostrar_todos_pacientes()
 '''
+
+
 def main_menu():
     try:
         while True:
@@ -51,7 +53,7 @@ def main_menu():
                 print("Ingrese una opcion valida (0-2)")
                         
     except ValueError:
-            print("Debe ingresar un numero")
+            print("Ingrese una opcion valida. Debe ingresar un numero (0-2)")
 
 
 def pacientes_menu():
@@ -123,13 +125,11 @@ def turnos_menu():
                 break
             
             else:
-                print("Ingrese una opcion valida")
+                print("Ingrese una opcion valida. (0-5)")
                 
         except ValueError:
-            print("Debe ingresar un numero")    
+            print("Ingrese una opcion valida. (0-5)")    
             
             
 main_menu()
           
-
-'''

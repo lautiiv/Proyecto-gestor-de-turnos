@@ -19,6 +19,11 @@ class PacienteDAO(PacienteDAOInterfaz):
                 cursor.execute(query,(paciente.nombre,paciente.apellido,paciente.edad,paciente.obra_social,paciente.telefono))
                 
                 conn.commit()
+                
+                id_del_paciente = cursor.lastrowid
+                return id_del_paciente
+                
+                
             except mysql.connector.Error as err:
                 raise err
      
