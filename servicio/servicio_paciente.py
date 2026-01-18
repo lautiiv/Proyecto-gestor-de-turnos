@@ -2,17 +2,17 @@ from dominio.paciente import Paciente
 from db.db_conn import DBConn
 from dao.paciente_dao import PacienteDAO
 
-class servicios_pacientes:
+class Servicios_Pacientes:
     def __init__(self, db : DBConn):
         self.db = db
         self.dao = PacienteDAO(db)
         
-    def registrar_paciente(self, nombre: str, apellido: str, edad: int, obra_social: str, telefono:str,id_paciente: int):
+    def registrar_paciente(self, nombre: str, apellido: str, edad: int, obra_social: str, telefono:str,):
             
             nombre = nombre.strip()
             apellido = apellido.strip()
             obra_social = obra_social.strip()
-            telefono = telefono.strip
+            telefono = telefono.strip()
             
             #Validaciones para nombre y apellido
             
@@ -59,8 +59,7 @@ class servicios_pacientes:
                 apellido,
                 edad,
                 obra_social,
-                telefono,
-                id_paciente=None
+                telefono
                 )
             
             try:
@@ -69,7 +68,9 @@ class servicios_pacientes:
                 print("Paciente registrado con exito, a continuacion le muestro ID correspondiente")
                 return id_nuevo_paciente
             except Exception as e:
-                raise ValueError("No se pudo registrar al nuevo paciente. Verifique que los datos sean correctos")
+                raise ValueError("ERROR AL REGISTRAR PACIENTE:", e)
             
             
-            # nombre,apellido,edad,obra_social,telefono
+    def mostrar_pacientes(self):
+        lista_de_pacientes = self.dao.mostrar_todos_pacientes()
+        return lista_de_pacientes

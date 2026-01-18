@@ -13,6 +13,10 @@ class Paciente:
     def id_paciente(self):
         return self.__id_paciente
     
+    @id_paciente.setter
+    def id_paciente(self,nuevo_id):
+        self.__id_paciente = nuevo_id  
+    
     @property
     def nombre(self):
         return self.__nombre
@@ -52,6 +56,7 @@ class Paciente:
     @telefono.setter
     def telefono(self,nuevo_telefono):
         self.__telefono = nuevo_telefono
+
     
     def __str__(self):
         return f'== DATOS PACIENTE ==\nNOMBRE: {self.nombre}\nAPELLIDO: {self.apellido}\nEDAD:{self.edad}\nOBRA SOCIAL: {self.obra_social}\n Telefono: {self.telefono}\n ID: {self.id_paciente}'
