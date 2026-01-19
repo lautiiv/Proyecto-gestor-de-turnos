@@ -36,6 +36,9 @@ class PacienteDAO(PacienteDAOInterfaz):
                 cursor.execute(query, (paciente_id,))
                 
                 conn.commit()
+                lineas_afectadas = cursor.rowcount
+                return lineas_afectadas
+                
             except mysql.connector.Error as err:
                 raise err
      

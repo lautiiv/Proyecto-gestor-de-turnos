@@ -1,3 +1,4 @@
+# OPCION CREAR PACIENTE
 
 def opcion_uno_menu_pacientes(instancia_servicio_paciente):
      while True: 
@@ -30,35 +31,35 @@ def opcion_uno_menu_pacientes(instancia_servicio_paciente):
             print("Ingrese una opcion valida. Debe ingresar un numero (0-2)")
                         
 
-def opcion_tres_menu_pacientes(instancia_servicios):
+# OPCION ELIMINAR PACIENTE
+
+def opcion_tres_menu_pacientes(instancia_servicios): 
     while True:
         try:
-            opcion_menu_tres = int(input("1. Eliminar paciente\n2. Regresar al menu pacientes\n"))
-            if opcion_menu_tres == 1:
-                while True:
-                    try:
-                        print("Si usted sabe el ID del paciente a eliminar ingrese la opcion 1. Si usted no sabe el ID ingrese la opcion 2")
-                        opcion_para_eliminar = int(input("\n1. Ingrese ID del paciente a eliminar\n2. Mostrar el ID de todos los pacientes\n3. Salir\n"))
-                        if opcion_para_eliminar == 1:
-                            pass ## ACA SE ELIMINA EL PACIENTE 
-                                    
-                            #ELIF opcion_para_eliminar == 2:
-                                    
-                        elif opcion_para_eliminar == 2:
-                            print("\nLISTA DE PACIENTES: \n")
-                            instancia_servicios.mostrar_pacientes()
+            opcion_para_eliminar = int(input("\n1. Si sabe el ID del paciente a eliminar\n2. Mostrar el ID de todos los pacientes\n3. Salir\n"))
+                        
+            if opcion_para_eliminar == 1:
+                try:
+                    id_a_eliminar = int(input("Ingrese el ID: "))
+                    instancia_servicios.eliminar_paciente(id_a_eliminar)
+                except ValueError:
+                    print("ERROR: Ingrese un dato valido")
+                
+                
+            elif opcion_para_eliminar == 2:
+                print("\nLISTA DE PACIENTES: \n")
+                instancia_servicios.mostrar_pacientes()
                             
-                        elif opcion_para_eliminar == 3:
-                            break
-                        
-                        else:
-                            print("Ingrese una opcion valida. Debe ingresar un numero (1-2-3) ")
-                    except ValueError:
-                        print("Dato no valido, debe ser un numero")
-                        
-            elif opcion_menu_tres == 2:
+            elif opcion_para_eliminar == 3:
                 break
             else:
-                print("Ingreso una opcion no valida. Las opciones deben ser 1 o 2")
+                print("Ingrese una opcion valida. Debe ingresar un numero (1-2-3) ")
         except ValueError:
             print("Dato no valido, debe ser un numero")
+                
+#OPCION MOSTRAR PACIENTE
+
+def opcion_cuatro_menu_pacientes(instancia_servicios):
+    while True:
+        try:
+            

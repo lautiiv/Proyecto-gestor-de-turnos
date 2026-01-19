@@ -11,8 +11,9 @@ dao = PacienteDAO(db)
 instancia_servicio_pacientes = Servicios_Pacientes(db)
 
 def main_menu():
-    try:
-        while True:
+
+    while True:
+        try:
             print("\n===GESTOR DE TURNOS ===\n")
                     
             print("====OPCIONES===\n")
@@ -33,7 +34,7 @@ def main_menu():
             else:
                 print("Ingrese una opcion valida (0-2)")
                         
-    except ValueError:
+        except ValueError:
             print("Ingrese una opcion valida. Debe ingresar un numero (0-2)")
             
             

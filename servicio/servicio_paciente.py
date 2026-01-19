@@ -74,3 +74,14 @@ class Servicios_Pacientes:
     def mostrar_pacientes(self):
         lista_de_pacientes = self.dao.mostrar_todos_pacientes()
         return lista_de_pacientes
+    
+    def eliminar_paciente(self,ID):
+        
+        print(f"Se intenta eliminar el Paciente con ID {ID}")
+        paciente_eliminado = self.dao.eliminar_paciente(ID)
+            
+        if paciente_eliminado > 0:
+            print("Paciente eliminado con exito")
+        else:
+            print("Error al eliminar el paciente, id incorrecto")
+        
