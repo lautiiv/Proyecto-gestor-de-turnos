@@ -2,7 +2,7 @@ from dao.paciente_dao import PacienteDAO
 from dominio.paciente import Paciente
 from db.db_conn import DBConn
 from servicio.servicio_paciente import Servicios_Pacientes
-from menus.menu_pacientes import opcion_uno_menu_pacientes, opcion_tres_menu_pacientes
+from menus.menu_pacientes import opcion_uno_menu_pacientes, opcion_tres_menu_pacientes, opcion_cuatro_menu_pacientes, opcion_dos_menu_pacientes
 
 
 db = DBConn(config_file="./config.ini")
@@ -52,14 +52,14 @@ def pacientes_menu():
                 opcion_uno_menu_pacientes(instancia_servicio_pacientes)
             
             elif opcion == 2:
-                pass
+                opcion_dos_menu_pacientes(instancia_servicio_pacientes)
+                
             
             elif opcion == 3:
                 opcion_tres_menu_pacientes(instancia_servicio_pacientes)
             
             elif opcion == 4:
-                
-                pass
+                opcion_cuatro_menu_pacientes(instancia_servicio_pacientes)
             
             elif opcion == 5:
                 print("\nLISTA DE PACIENTES: \n")

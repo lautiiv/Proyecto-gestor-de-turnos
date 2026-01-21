@@ -43,8 +43,6 @@ class PacienteDAO(PacienteDAOInterfaz):
                 raise err
      
     
-    def modificar_paciente(self):
-        pass
     
     def mostrar_paciente_por_id(self, paciete_id: int):
         with self.db_conn.connect_to_mysql() as conn:
@@ -53,8 +51,7 @@ class PacienteDAO(PacienteDAOInterfaz):
                 query = f'select id_paciente, nombre, apellido, edad, obra_social,telefono from {self.db_name}.paciente where id_paciente = %s'
                 cursor.execute(query, (paciete_id,))
                 row = cursor.fetchone()
-                print(row)
-                
+                return row
                 
             except mysql.connector.Error as err:
                 raise err
@@ -74,4 +71,50 @@ class PacienteDAO(PacienteDAOInterfaz):
                 raise err
     
     
-    
+    def mostrar_id_nombre_apellido(self) -> list:
+        with self.db_conn.connect_to_mysql() as conn:
+            try:
+                cursor = conn.cursor()
+                query = f'select id_paciente, nombre, apellido from {self.db_name}.paciente'
+                cursor.execute(query)
+                rows = cursor.fetchall()
+                return rows
+            
+            except mysql.connector.Error as err:
+                raise err    
+            
+            
+    def modificar_paciente(self, paciente_id: int, paciente : Paciente):
+        with self.db_conn.connect_to_mysql() as conn:
+            try:
+                cursor = conn.cursor()
+                
+                query = f'update paciente set nombre =%s, apellido =%s, edad =%s, obra_social =%s, telefono =%s where id_paciente =%s'
+                
+                values = (paciente.nombre,paciente.apellido,paciente.edad,paciente.obra_social,paciente.telefono,paciente_id)
+                
+                cursor.execute(query,values)
+                conn.commit
+                
+                lineas_afectadas = cursor.rowcount
+                return lineas_afectadas
+            
+            except mysql.connector.Error as err:
+                raise err            
+            
+    def modificar_nombre_paciente(self, paciente_id: int, nombre: str):
+        with self.db_conn.connect_to_mysql() as conn:
+            try:
+                cursor = conn.cursor()
+                
+                query = f'update {self.db_name}.paciente set nombre =%s where id_paciente = %s'
+                values = (nombre,paciente_id)
+                
+                cursor.execute(query,values)
+                conn.commit()
+                
+                lineas_afectadas = cursor.rowcount
+                return lineas_afectadas
+            
+            except mysql.connector.Error as err:
+                raise err

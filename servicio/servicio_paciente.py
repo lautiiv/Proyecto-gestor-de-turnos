@@ -75,13 +75,47 @@ class Servicios_Pacientes:
         lista_de_pacientes = self.dao.mostrar_todos_pacientes()
         return lista_de_pacientes
     
+    def mostrar_paciente_por_id(self, ID):
+        print("Mostrando los datos del paciente: ", ID)
+        
+        datos_del_paciente = self.dao.mostrar_paciente_por_id(ID)
+        
+        if not datos_del_paciente:
+            print("El ID ingresado no coincide con ningun usuario")
+        else:
+            print(datos_del_paciente)
+    
     def eliminar_paciente(self,ID):
         
-        print(f"Se intenta eliminar el Paciente con ID {ID}")
+        print("Se intenta eliminar el Paciente con ID", ID)
         paciente_eliminado = self.dao.eliminar_paciente(ID)
             
         if paciente_eliminado > 0:
             print("Paciente eliminado con exito")
         else:
             print("Error al eliminar el paciente, id incorrecto")
+        
+    def mostrar_id_nombre_apellido_servicio(self):
+        datos_pacientes = self.dao.mostrar_id_nombre_apellido()
+        for x in datos_pacientes:
+            print(f"ID: {x[0]}, {x[1]}, {x[2]}")
+    
+    def actualizar_paciente_nombre_servicio(self,ID,nuevo_nombre):
+        if not nuevo_nombre:
+            raise ValueError("El nombre no puede estar vacio")
+        elif not nuevo_nombre.isalpha():
+            raise ValueError("El nombre no puede contener numeros")
+        elif len(nuevo_nombre) <= 2 or len(nuevo_nombre) > 50:
+            raise ValueError("El nombre tiene que tener entre 3 y 50 digitos")
+        try:
+            nombre_actualizado = self.dao.modificar_nombre_paciente(ID,nuevo_nombre)
+        except Exception as e:
+            raise ValueError("ERROR AL REGISTRAR PACIENTE:", e)
+    
+        if nombre_actualizado > 0:
+            print("El nombre del paciente pudo ser actualizado con exito")
+        else: 
+            print("No se pudo actualizar el nombre")
+        
+        
         
