@@ -84,17 +84,17 @@ class PacienteDAO(PacienteDAOInterfaz):
                 raise err    
             
             
-    def modificar_paciente(self, paciente_id: int, paciente : Paciente):
+    def modificar_paciente(self, paciente : Paciente):
         with self.db_conn.connect_to_mysql() as conn:
             try:
                 cursor = conn.cursor()
                 
-                query = f'update paciente set nombre =%s, apellido =%s, edad =%s, obra_social =%s, telefono =%s where id_paciente =%s'
+                query = f'update {self.db_name}.paciente set nombre =%s, apellido =%s, edad =%s, obra_social =%s, telefono =%s where id_paciente =%s'
                 
-                values = (paciente.nombre,paciente.apellido,paciente.edad,paciente.obra_social,paciente.telefono,paciente_id)
+                values = (paciente.nombre,paciente.apellido,paciente.edad,paciente.obra_social,paciente.telefono,paciente.id_paciente)
                 
                 cursor.execute(query,values)
-                conn.commit
+                conn.commit()
                 
                 lineas_afectadas = cursor.rowcount
                 return lineas_afectadas

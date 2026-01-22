@@ -6,69 +6,75 @@ class Servicios_Pacientes:
     def __init__(self, db : DBConn):
         self.db = db
         self.dao = PacienteDAO(db)
+    
+    #Funcion para validar la integridad de los datos del paciente. No devuelve nada, pero si algo esta mal arroja error interrumpiendo el flujo
         
-    def registrar_paciente(self, nombre: str, apellido: str, edad: int, obra_social: str, telefono:str,):
+    def validar_paciente(self, paciente : Paciente):
+        
+        paciente.nombre.strip()
+        paciente.apellido.strip()
+        paciente.obra_social.strip()
+        paciente.telefono.strip()        
+
+        #Validaciones para nombre y apellido
+        
+        if not paciente.nombre or not paciente.apellido:
+            raise ValueError("El nombre y el apellido no pueden estar vacios")
+        elif not paciente.nombre.isalpha() or not paciente.apellido.isalpha():
+            raise ValueError("El nombre no puede contener numeros")    
+        elif len(paciente.nombre) <= 2 or len(paciente.nombre) > 50:
+            raise ValueError("El nombre tiene que tener entre 3 y 50 digitos")
+        
+        #Validaciones para edad
             
-            nombre = nombre.strip()
-            apellido = apellido.strip()
-            obra_social = obra_social.strip()
-            telefono = telefono.strip()
+        if not paciente.edad:
+            raise ValueError("La edad no puede estar vacia")
+        elif paciente.edad < 0:
+            raise ValueError("La edad no puede ser menor a 0")
+        elif paciente.edad > 130:
+            raise ValueError("La edad que ingresaste es superior al limite posible")
+
+        #Validaciones para obra_social
             
-            #Validaciones para nombre y apellido
+        if not paciente.obra_social:
+            raise ValueError("La obra oscial no puede estar vacia")
             
-            if not nombre or not apellido:
-                raise ValueError("El nombre y el apellido no pueden estar vacios")
+        elif len(paciente.obra_social) > 50:
+            raise ValueError("El nombre de la obra social no puede tener mas de 50 digitos")
             
-            elif not nombre.isalpha() or not apellido.isalpha():
-                raise ValueError("El nombre no puede contener numeros")
+        # Validaciones para telefono
             
-            elif len(nombre) <= 2 or len(nombre) > 50:
-                raise ValueError("El nombre tiene que tener entre 3 y 50 digitos")
+        if not paciente.telefono:
+            raise ValueError("El telefono no puede estar vacio")
             
-            #Validaciones para edad
+        elif not paciente.telefono.isdigit():
+            raise ValueError("El telefono solo puede contener numeros")
             
-            if not edad:
-                raise ValueError("La edad no puede estar vacia")
-            elif edad < 0:
-                raise ValueError("La edad no puede ser menor a 0")
-            elif edad > 130:
-                raise ValueError("La edad que ingresaste es superior al limite posible")
+        elif len(paciente.telefono) < 5 or len(paciente.telefono) > 15:
+            raise ValueError("El numero de telefono tiene que tener entre 5 y 15 digitos")            
+                    
+        
+        
+        
+    def registrar_paciente(self, nombre: str, apellido: str, edad: int, obra_social: str, telefono:str):
             
+
+        nuevo_paciente = Paciente(
+            nombre,
+            apellido,
+            edad,
+            obra_social,
+            telefono
+            )
+        self.validar_paciente(nuevo_paciente)
             
-            #Validaciones para obra_social
-            
-            if not obra_social:
-                raise ValueError("La obra oscial no puede estar vacia")
-            
-            elif len(obra_social) > 50:
-                raise ValueError("El nombre de la obra social no puede tener mas de 50 digitos")
-            
-            # Validaciones para telefono
-            
-            if not telefono:
-                raise ValueError("El telefono no puede estar vacio")
-            
-            elif not telefono.isdigit():
-                raise ValueError("El telefono solo puede contener numeros")
-            
-            elif len(telefono) < 5 or len(telefono) > 15:
-                raise ValueError("El numero de telefono tiene que tener entre 5 y 15 digitos")            
-            
-            nuevo_paciente = Paciente(
-                nombre,
-                apellido,
-                edad,
-                obra_social,
-                telefono
-                )
-            
-            try:
-                id_nuevo_paciente = self.dao.registrar_paciente(nuevo_paciente)
-                nuevo_paciente.id_paciente = id_nuevo_paciente
-                print("Paciente registrado con exito, a continuacion le muestro ID correspondiente")
-                return id_nuevo_paciente
-            except Exception as e:
-                raise ValueError(F"ERROR AL REGISTRAR PACIENTE: {e}")
+        try:
+            id_nuevo_paciente = self.dao.registrar_paciente(nuevo_paciente)
+            nuevo_paciente.id_paciente = id_nuevo_paciente
+            print("Paciente registrado con exito, a continuacion le muestro ID correspondiente")
+            return id_nuevo_paciente
+        except Exception as e:
+            raise ValueError(F"ERROR AL REGISTRAR PACIENTE: {e}")
             
             
     def mostrar_pacientes(self):
@@ -108,10 +114,17 @@ class Servicios_Pacientes:
             edad=paciente_dao[3],
             obra_social=paciente_dao[4],
             telefono=paciente_dao[5],
-            id_paciente=paciente_dao[0])
-        
-            
+            id_paciente=paciente_dao[0])    
         return paciente
     
     def update_paciente(self, paciente: Paciente):
-        pass
+        self.validar_paciente(paciente)
+        filas = self.dao.modificar_paciente(paciente)
+        
+        if filas > 0:
+            return print("Paciente actualizado con exito")
+        else:
+            return print("No se pudo modificar el paciente")
+        
+    
+        
