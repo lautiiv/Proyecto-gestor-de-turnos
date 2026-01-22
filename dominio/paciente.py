@@ -59,4 +59,4 @@ class Paciente:
 
     
     def __str__(self):
-        return f'== DATOS PACIENTE ==\nNOMBRE: {self.nombre}\nAPELLIDO: {self.apellido}\nEDAD:{self.edad}\nOBRA SOCIAL: {self.obra_social}\n Telefono: {self.telefono}\n ID: {self.id_paciente}'
+        return f'== DATOS PACIENTE ==\nNOMBRE: {self.nombre}\nAPELLIDO: {self.apellido}\nEDAD:{self.edad}\nOBRA SOCIAL: {self.obra_social}\nTELEFONO: {self.telefono}\nID: {self.id_paciente}'

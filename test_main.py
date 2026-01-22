@@ -72,7 +72,14 @@ def pacientes_menu():
                 print("Ingrese una opcion valida")
             
         except ValueError:
-            print("Debe ingresar un numero")            
+            print("Debe ingresar un numero")
             
+def turnos_menu():
+    while True:
+        try:
+            print("\n== MENU TURNOS ==\n")            
+            print('1. Crear paciente\n2. Modificar paciente\n3. Eliminar paciente\n4. Mostrar paciente\n5. Mostrar todos los pacientes\n0. Salir')
+        except ValueError:
+            raise("ERRORR")
 
 main_menu()

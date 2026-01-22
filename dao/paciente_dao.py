@@ -118,3 +118,16 @@ class PacienteDAO(PacienteDAOInterfaz):
             
             except mysql.connector.Error as err:
                 raise err
+
+
+    def obtener_instancia_paciente_por_id(self, paciete_id: int):
+        with self.db_conn.connect_to_mysql() as conn:
+            try:
+                cursor = conn.cursor()
+                query = f'select id_paciente, nombre, apellido, edad, obra_social,telefono from {self.db_name}.paciente where id_paciente = %s'
+                cursor.execute(query, (paciete_id,))
+                row = cursor.fetchone()
+                return row
+                
+            except mysql.connector.Error as err:
+                raise err

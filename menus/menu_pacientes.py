@@ -92,18 +92,23 @@ def opcion_dos_menu_pacientes(instancia_servicios):
             if input_menu == 1:
                 try:
                     id_paciente_a_modificar = int(input("Ingrese el ID: "))
+                       
+                    paciente = instancia_servicios.obtener_instancia_paciente_por_id(id_paciente_a_modificar)
                     
-                    print(f"Usted a seleccionado el paciente con ID: {id_paciente_a_modificar}\n1A continuacion se le mostraron los datos: \n1")
-                    instancia_servicios.mostrar_paciente_por_id(id_paciente_a_modificar)
+                    #Se muestran datos del paciente a modificar
+                    print(f"Usted a seleccionado el paciente con ID: {id_paciente_a_modificar}\nA continuacion se le mostraron los datos: \n")
+                    print(paciente)
                     
-                    modificar_datos_pacientes(instancia_servicios,id_paciente_a_modificar)
+                    modificar_datos_pacientes(instancia_servicios,paciente)
                     
-                    print("Desea modificar otro atributo? \n")
-
+                    print("Desea modificar algun atributo atributo? \n")
+                    
                 except ValueError:
                     print("ERROR: Ingrese un dato valido")
             
-            elif input_menu == 2: instancia_servicios.mostrar_id_nombre_apellido_servicio()
+            elif input_menu == 2: 
+                instancia_servicios.mostrar_id_nombre_apellido_servicio()
+            
             
             elif input_menu == 3:
                 break
@@ -113,36 +118,54 @@ def opcion_dos_menu_pacientes(instancia_servicios):
         except ValueError:
             print("Dato no valido debe ser un numero")
             
-def modificar_datos_pacientes(instancia_servicios,id_a_modificar):
+def modificar_datos_pacientes(servicio,paciente_a_modificar):
     while True:
         try:
             print("Que atributo desea modificar?")
-            print("\n1. Nombre\n2. Apellido\n3. Edad\n4. Obra_social\n5. Telefono\n6. Salir")
+            print("\n1. Nombre\n2. Apellido\n3. Edad\n4. Obra_social\n5. Telefono\n6. Salir y actualizar")
             
             menu = int(input())
             
             if menu == 1:
                 try:
                     nombre = input("Introduzca el nuevo nombre: ").strip()
-                    instancia_servicios.actualizar_paciente_nombre_servicio(id_a_modificar,nombre)
+                    paciente_a_modificar.nombre = nombre
+                    print("Nombre actualizado con exito\n")
+                    
                 except ValueError:("Error, introduzca un dato valido")    
             
             elif menu == 2:
-                #try:
+                try:
                     apellido = input("Introduzca el nuevo apellido: ").strip()
-                    #instancia_servicios.
+                    paciente_a_modificar.apellido = apellido
+                    print("Apellido actualizado con exito\n")
+                except ValueError:("Error, introduzca un dato valido")    
             
             elif menu == 3:
-                edad = int(input("Introduzca la nueva edad: "))
+                try:
+                    edad = int(input("Introduzca la nueva edad: "))
+                    paciente_a_modificar.edad = edad
+                    print("Edad actualizada con exito\n")
+                except ValueError:("Error, introduzca un dato valido")
             
             elif menu == 4:
-                obra_social = input("Introduzca su nueva obra social: ").strip()
+                try:
+                    obra_social = input("Introduzca su nueva obra social: ").strip()
+                    paciente_a_modificar.obra_social = obra_social
+                    print("Obra social actualizada con exito\n")
+                except ValueError:("Error, introduzca un dato valido")
+                
             
             elif menu == 5:
-                #try:
+                try:
                     telefono = input("Introduzca su nuevo telefono: ").strip()
+                    paciente_a_modificar.telefono = telefono
+                    print("Telofono actualizado con exito\n")
+                except ValueError:("Error, introduzca un dato valido")
+                    
             
             elif menu == 6:
+                servicio.update_paciente(paciente_a_modificar)
                 break
             
             else:

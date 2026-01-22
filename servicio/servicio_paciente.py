@@ -68,7 +68,7 @@ class Servicios_Pacientes:
                 print("Paciente registrado con exito, a continuacion le muestro ID correspondiente")
                 return id_nuevo_paciente
             except Exception as e:
-                raise ValueError("ERROR AL REGISTRAR PACIENTE:", e)
+                raise ValueError(F"ERROR AL REGISTRAR PACIENTE: {e}")
             
             
     def mostrar_pacientes(self):
@@ -76,7 +76,6 @@ class Servicios_Pacientes:
         return lista_de_pacientes
     
     def mostrar_paciente_por_id(self, ID):
-        print("Mostrando los datos del paciente: ", ID)
         
         datos_del_paciente = self.dao.mostrar_paciente_por_id(ID)
         
@@ -99,23 +98,20 @@ class Servicios_Pacientes:
         datos_pacientes = self.dao.mostrar_id_nombre_apellido()
         for x in datos_pacientes:
             print(f"ID: {x[0]}, {x[1]}, {x[2]}")
+          
+    def obtener_instancia_paciente_por_id(self,ID_PACIENTE):
+        paciente_dao = self.dao.obtener_instancia_paciente_por_id(ID_PACIENTE)
+        
+        paciente = Paciente(
+            nombre=paciente_dao[1],
+            apellido=paciente_dao[2],
+            edad=paciente_dao[3],
+            obra_social=paciente_dao[4],
+            telefono=paciente_dao[5],
+            id_paciente=paciente_dao[0])
+        
+            
+        return paciente
     
-    def actualizar_paciente_nombre_servicio(self,ID,nuevo_nombre):
-        if not nuevo_nombre:
-            raise ValueError("El nombre no puede estar vacio")
-        elif not nuevo_nombre.isalpha():
-            raise ValueError("El nombre no puede contener numeros")
-        elif len(nuevo_nombre) <= 2 or len(nuevo_nombre) > 50:
-            raise ValueError("El nombre tiene que tener entre 3 y 50 digitos")
-        try:
-            nombre_actualizado = self.dao.modificar_nombre_paciente(ID,nuevo_nombre)
-        except Exception as e:
-            raise ValueError("ERROR AL REGISTRAR PACIENTE:", e)
-    
-        if nombre_actualizado > 0:
-            print("El nombre del paciente pudo ser actualizado con exito")
-        else: 
-            print("No se pudo actualizar el nombre")
-        
-        
-        
+    def update_paciente(self, paciente: Paciente):
+        pass
