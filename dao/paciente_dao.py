@@ -102,23 +102,6 @@ class PacienteDAO(PacienteDAOInterfaz):
             except mysql.connector.Error as err:
                 raise err            
             
-    def modificar_nombre_paciente(self, paciente_id: int, nombre: str):
-        with self.db_conn.connect_to_mysql() as conn:
-            try:
-                cursor = conn.cursor()
-                
-                query = f'update {self.db_name}.paciente set nombre =%s where id_paciente = %s'
-                values = (nombre,paciente_id)
-                
-                cursor.execute(query,values)
-                conn.commit()
-                
-                lineas_afectadas = cursor.rowcount
-                return lineas_afectadas
-            
-            except mysql.connector.Error as err:
-                raise err
-
 
     def obtener_instancia_paciente_por_id(self, paciete_id: int):
         with self.db_conn.connect_to_mysql() as conn:
@@ -131,3 +114,21 @@ class PacienteDAO(PacienteDAOInterfaz):
                 
             except mysql.connector.Error as err:
                 raise err
+            
+    def verificar_paciente_existe(self,id_paciente: int) -> bool :
+        with self.db_conn.connect_to_mysql() as conn:
+            try:
+                cursor = conn.cursor()
+                
+                query = f'select count(*) from {self.db_name}.paciente where id_paciente = %s'
+                
+                cursor.execute(query,(id_paciente,))
+                
+                resultado = cursor.fetchone()
+                cantidad = resultado[0]
+             
+                return cantidad > 0
+            except mysql.connector.Error as err:
+                raise err
+                
+                

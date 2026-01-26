@@ -2,11 +2,15 @@ from dominio.turno import Turno
 from db.db_conn import DBConn
 from dao.turno_dao import TurnoDAO
 from datetime import datetime
+from dao.paciente_dao import PacienteDAO
+
+
 
 class Servicio_Turnos:
-    def __init__(self, db : DBConn ):
+    def __init__(self, db : DBConn):
         self.db = db
         self.dao = TurnoDAO(db)
+        self.paciente_dao = PacienteDAO(db)
         
     def validar_turno(self, turno : Turno):
         turno.nombre_estudio = turno.nombre_estudio.strip()
@@ -17,6 +21,8 @@ class Servicio_Turnos:
         
         if turno.id_resonador < 1 or turno.id_resonador > 3:
             raise ValueError("El id del resonador tiene que ser 1-2-3")
+        
+        self.verificar_paciente_existe(turno.id_paciente)
         
         #Validaciones para nombre estudio
         
@@ -40,6 +46,13 @@ class Servicio_Turnos:
         
         if turno.fecha_hora.minute not in (0,30):
             raise ValueError("Los estudios tienen que ser cada 30 minutos")
+        
+    def verificar_paciente_existe(self,id):
+        resultado = self.paciente_dao.verificar_paciente_existe(id)
+        
+        if resultado == False:
+            raise ValueError("No se encontro paciente con ese ID")
+    
     
     def registrar_turno(self, turno : Turno):
         self.validar_turno(turno)
@@ -48,5 +61,6 @@ class Servicio_Turnos:
             print("Registrado")
         except ValueError as err:
             raise err
+        
         
         
