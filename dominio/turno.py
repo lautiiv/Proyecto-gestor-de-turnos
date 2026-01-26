@@ -1,12 +1,14 @@
+from datetime import datetime
+
 class Turno:
-    def __init__(self,id_turno,id_paciente,id_resonador,fecha,estudio,estado_del_turno):
+    def __init__(self,id_turno,id_paciente,id_resonador,fecha_hora: datetime,nombre_estudio,):
         
         self.__id_turno = id_turno
         self.__id_paciente = id_paciente
         self.__id_resonador = id_resonador
-        self.__fecha = fecha
-        self._nombre_estudio = estudio
-        self._estado_del_turno = estado_del_turno
+        self.__fecha_hora = fecha_hora
+        self._nombre_estudio = nombre_estudio
+        
         
         
     @property
@@ -22,14 +24,12 @@ class Turno:
         return self.__id_resonador
     
     @property
-    def fecha(self):
-        return self.__fecha
+    def fecha_hora(self):
+        return self.__fecha_hora
     
-    
-    @fecha.setter
-    def fecha(self,nueva_fecha):
-        self.fecha = nueva_fecha
-        
+    @fecha_hora.setter
+    def fecha_hora(self,nueva_fecha_hora):
+        self.__fecha_hora = nueva_fecha_hora
         
     @property
     def nombre_estudio(self):
@@ -39,12 +39,5 @@ class Turno:
     def nombre_estudio(self,nuevo_nombre):
         self._nombre_estudio = nuevo_nombre
         
-    @property
-    def estado_del_turno(self):
-        return self._estado_del_turno
-    
-    @estado_del_turno.setter
-    def estado_del_turno(self,nuevo_estado):
-        self._estado_del_turno = nuevo_estado
         
     

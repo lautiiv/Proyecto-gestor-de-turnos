@@ -12,7 +12,7 @@ class TurnoDAO_Interfaz(ABC):
         pass
 
     @abstractmethod
-    def eliminar_turno(self, id_turno : int): #recibe un id y elimina el turno devuelve un bool
+    def cancelar_turno(self, id_turno : int): #recibe un id y elimina el turno devuelve un bool
         pass
     
     
