@@ -12,8 +12,8 @@ def menu_opcion_uno_turno(servicio):
     if opcion == 1:
         try:#input
             id_paciente = int(input("Ingrese el ID: "))
-            print("En que resonador desea registrar el turno? \n1. Resonador 1.5#1\n 2. Resonador 1.5#2\n3. Resonador 3T")
-            id_resonador = int(input("Ingrese el ID del resonador: "))
+            print("En que resonador desea registrar el turno? \n1. Resonador 1.5#1\n2. Resonador 1.5#2\n3. Resonador 3T")
+            id_resonador = int(input("Ingrese el resonador que desea: "))
             fecha_str = input("Fecha (YYYY-MM-DD): ")
             hora_str = input("Hora (HH:MM): ")
             nombre_estudio = input("Ingrese el nombre del estudio: ")

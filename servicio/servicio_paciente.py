@@ -1,11 +1,13 @@
 from dominio.paciente import Paciente
 from db.db_conn import DBConn
 from dao.paciente_dao import PacienteDAO
+from dao.turno_dao import TurnoDAO
 
 class Servicios_Pacientes:
     def __init__(self, db : DBConn):
         self.db = db
         self.dao = PacienteDAO(db)
+        self.dao_turno = TurnoDAO(db)
     
     #Funcion para validar la integridad de los datos del paciente. No devuelve nada, pero si algo esta mal arroja error interrumpiendo el flujo
         
@@ -53,9 +55,7 @@ class Servicios_Pacientes:
         elif len(paciente.telefono) < 5 or len(paciente.telefono) > 15:
             raise ValueError("El numero de telefono tiene que tener entre 5 y 15 digitos")            
                     
-        
-        
-        
+             
     def registrar_paciente(self, nombre: str, apellido: str, edad: int, obra_social: str, telefono:str):
             
 

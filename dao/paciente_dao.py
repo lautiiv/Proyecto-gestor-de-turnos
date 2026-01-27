@@ -3,6 +3,7 @@ from mysql.connector import errorcode
 from dominio.paciente import Paciente
 from dao.interfaz_dao.interfaz_paciente_dao import PacienteDAOInterfaz
 from db.db_conn import DBConn
+from datetime import datetime
 
 class PacienteDAO(PacienteDAOInterfaz):
     
@@ -130,5 +131,3 @@ class PacienteDAO(PacienteDAOInterfaz):
                 return cantidad > 0
             except mysql.connector.Error as err:
                 raise err
-                
-                

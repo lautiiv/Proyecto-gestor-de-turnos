@@ -4,8 +4,6 @@ from dao.turno_dao import TurnoDAO
 from datetime import datetime
 from dao.paciente_dao import PacienteDAO
 
-
-
 class Servicio_Turnos:
     def __init__(self, db : DBConn):
         self.db = db
@@ -47,12 +45,20 @@ class Servicio_Turnos:
         if turno.fecha_hora.minute not in (0,30):
             raise ValueError("Los estudios tienen que ser cada 30 minutos")
         
+        self.validar_disponibilidad_horario(turno.fecha_hora,turno.id_resonador)
+        
     def verificar_paciente_existe(self,id):
         resultado = self.paciente_dao.verificar_paciente_existe(id)
         
         if resultado == False:
             raise ValueError("No se encontro paciente con ese ID")
-    
+        
+    def validar_disponibilidad_horario(self,horario,id_resonador):
+        resultado = self.dao.verificar_disponibilidad_horario_dao(horario,id_resonador)
+        
+        if resultado == True:
+            raise ValueError("No se pudo registrar el turno porque ya esta ocupado ese horario en ese resonador")
+        
     
     def registrar_turno(self, turno : Turno):
         self.validar_turno(turno)
