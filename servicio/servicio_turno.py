@@ -3,6 +3,7 @@ from db.db_conn import DBConn
 from dao.turno_dao import TurnoDAO
 from datetime import datetime
 from dao.paciente_dao import PacienteDAO
+from servicio.servicio_paciente import Servicios_Pacientes
 
 class Servicio_Turnos:
     def __init__(self, db : DBConn):
@@ -67,6 +68,11 @@ class Servicio_Turnos:
             print("Registrado")
         except ValueError as err:
             raise err
+        
+    def listar_pacientes(self):
+        datos_pacientes = self.paciente_dao.mostrar_id_nombre_apellido()
+        for x in datos_pacientes:
+            print(f"ID: {x[0]}, {x[1]}, {x[2]}")
         
         
         

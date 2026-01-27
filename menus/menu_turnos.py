@@ -31,4 +31,4 @@ def menu_opcion_uno_turno(servicio):
         except ValueError as err:
             print(f'Error : {err}')   
     elif opcion == 2:
-        servicio.mostrar_id_nombre_apellido_servicio()
+        servicio.listar_pacientes()

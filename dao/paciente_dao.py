@@ -1,9 +1,8 @@
 import mysql.connector
-from mysql.connector import errorcode
 from dominio.paciente import Paciente
 from dao.interfaz_dao.interfaz_paciente_dao import PacienteDAOInterfaz
 from db.db_conn import DBConn
-from datetime import datetime
+
 
 class PacienteDAO(PacienteDAOInterfaz):
     
