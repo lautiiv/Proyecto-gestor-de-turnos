@@ -4,7 +4,7 @@ from db.db_conn import DBConn
 from servicio.servicio_paciente import Servicios_Pacientes
 from menus.menu_pacientes import opcion_uno_menu_pacientes, opcion_tres_menu_pacientes, opcion_cuatro_menu_pacientes, opcion_dos_menu_pacientes
 
-from menus.menu_turnos import menu_opcion_uno_turno
+from menus.menu_turnos import menu_opcion_uno_turno, menu_opcion_ver_turno
 from dao.turno_dao import TurnoDAO
 from servicio.servicio_turno import Servicio_Turnos
 
@@ -99,7 +99,7 @@ def turnos_menu():
             pass
         
         elif opcion == 4:
-            pass
+            menu_opcion_ver_turno(servicio_turnos)
         
         elif opcion == 5:
             pass

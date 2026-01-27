@@ -3,7 +3,6 @@ from db.db_conn import DBConn
 from dao.turno_dao import TurnoDAO
 from datetime import datetime
 from dao.paciente_dao import PacienteDAO
-from servicio.servicio_paciente import Servicios_Pacientes
 
 class Servicio_Turnos:
     def __init__(self, db : DBConn):
@@ -59,7 +58,7 @@ class Servicio_Turnos:
         
         if resultado == True:
             raise ValueError("No se pudo registrar el turno porque ya esta ocupado ese horario en ese resonador")
-        
+
     
     def registrar_turno(self, turno : Turno):
         self.validar_turno(turno)
