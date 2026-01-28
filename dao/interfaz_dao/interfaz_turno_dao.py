@@ -23,3 +23,8 @@ class TurnoDAO_Interfaz(ABC):
     @abstractmethod
     def visualizar_turnos(self): #muestra todos los turnos
         pass
+    
+    #metodos no previstos
+    @abstractmethod
+    def listar_turnos_con_paciente(self)-> list:
+        pass

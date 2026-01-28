@@ -73,5 +73,9 @@ class Servicio_Turnos:
         for x in datos_pacientes:
             print(f"ID: {x[0]}, {x[1]}, {x[2]}")
         
+    def listar_id_turnos_pacientes(self):
+        informacion_turnos = self.dao.listar_turnos_con_paciente()
+        for valor in informacion_turnos:
+            print(f'Nombre completo: {valor[2]} {valor[3]}, Estudio: {valor[1]}, ID_turno: {valor[0]} ')
         
         

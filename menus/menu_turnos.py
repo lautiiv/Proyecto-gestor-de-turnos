@@ -45,7 +45,7 @@ def menu_opcion_ver_turno(servicio):
             
         if menu == 1:
             while True:
-                print("\n1. Para ingresar el ID del turno\n2. Mostrar lista de pacientes\n0. Salir")
+                print("\n1. Para ingresar el ID del turno\n2. Mostrar ID de los turnos\n0. Salir")
                 try:
                     input_id_turno = int(input("\nIngrese una opcion: "))
                 except ValueError:
@@ -57,8 +57,8 @@ def menu_opcion_ver_turno(servicio):
                         print("Ingrese un numero entero")
                     #METODO_PARA_DEVOLVER_INFORMACION_DEL_ID_TURNO
                 elif input_id_turno == 2:
-                    #METODO PARA MOSTRAR ID_TURNOS
-                    pass
+                    servicio.listar_id_turnos_pacientes()
+                    
                     
                 elif input_id_turno == 0:
                     break
