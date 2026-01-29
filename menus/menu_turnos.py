@@ -47,27 +47,7 @@ def menu_opcion_ver_turno(servicio):
             opcion_buscar_turno_por_id(servicio)
    
         elif menu == 2:
-            while True:
-                
-                print("\n1. Para ingresar el ID del paciente\n2. Mostrar lista de pacientes\n0. Salir")
-                try:
-                    input_id_paciente = int(input("\nIngrese una opcion: "))
-                except ValueError:
-                    print("Ingrese una opcion valida.\n")
-                
-                if input_id_paciente == 1:
-                    pass
-                    #metodo para mostrar los turnos
-                
-                elif input_id_paciente == 2:
-                    
-                    print("\nLISTA DE PACIENTES: \n")
-                    servicio.listar_pacientes()
-                        
-                elif input_id_paciente == 0:
-                    break
-                else:
-                    print("Ingrese una opcion valida")
+            opcion_buscar_turno_por_id_paciente(servicio)
             
         elif menu == 0:
             break
@@ -78,6 +58,7 @@ def menu_opcion_ver_turno(servicio):
 
 def opcion_buscar_turno_por_id(servicio):
     while True:
+        print("\n== SUB MENU BUSCAR POR TURNO ID_TURNO ==\n")   
         print("\n1. Para ingresar el ID del turno\n2. Mostrar ID de los turnos\n0. Salir")
         try:
             sub_menu_buscar_turno_id = int(input("\nIngrese una opcion: "))
@@ -100,4 +81,33 @@ def opcion_buscar_turno_por_id(servicio):
             break
         
         else:
-            print("Ingrese una opcion valida")            
+            print("Ingrese una opcion valida")
+            
+def opcion_buscar_turno_por_id_paciente(servicio):
+    
+    # Muestra los turnos del paciente a traves de su ID_PACIENTE
+    # En caso de que no sepas el ID del paciente te muestra ID_PACIENTE acompañado de su nombre
+    
+    while True:
+        print("\n== SUB MENU BUSCAR POR TURNO ID_PACIENTE ==\n")        
+        print("1. Para ingresar el ID del paciente\n2. Mostrar lista de pacientes\n0. Salir")
+        try:
+            input_sub_menu_paciente = int(input("\nIngrese una opcion: "))
+        except ValueError:
+            print("Ingrese una opcion valida.\n")
+            continue
+        if input_sub_menu_paciente == 1:
+            try:
+                id_paciente_input = int(input("Ingrese el ID del paciente: "))
+                servicio.informacion_turno_por_id_paciente(id_paciente_input)
+            except ValueError as err:
+                print(err)
+                
+        elif input_sub_menu_paciente == 2:        
+            print("\nLISTA DE PACIENTES: \n")
+            servicio.listar_pacientes()
+                        
+        elif input_sub_menu_paciente == 0:
+            break
+        else:
+            print("Ingrese una opcion valida")

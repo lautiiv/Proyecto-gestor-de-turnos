@@ -130,3 +130,18 @@ class PacienteDAO(PacienteDAOInterfaz):
                 return cantidad > 0
             except mysql.connector.Error as err:
                 raise err
+            
+            
+    def nombre_completo(self, id_paciente: int) -> tuple:
+        #recibe id_paciente y devuelve nombre + apellido
+        with self.db_conn.connect_to_mysql() as conn:
+            try:
+                cursor = conn.cursor()
+                
+                query = f'SELECT nombre, apellido from {self.db_name}.paciente where id_paciente = %s'
+                cursor.execute(query, (id_paciente,))
+                
+                row = cursor.fetchone()
+                return row
+            except mysql.connector.Error as err:
+                raise err

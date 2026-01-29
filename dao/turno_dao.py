@@ -75,7 +75,26 @@ class TurnoDAO(TurnoDAO_Interfaz):
                 return resultado
             except mysql.connector.Error as err:
                 raise err
+                  
+    def informacion_turno_por_id_paciente(self, id_paciente: int)-> list :
+        #recibe un id_paciente, realiza un join para retornar una lista con nombre_estudio, fecha y en que equipo se realiza
+        
+        with self.db_conn.connect_to_mysql() as conn:
+            try:
+                cursor = conn.cursor()
                 
+                query = f"""select t.nombre_estudio, t.fecha, r.nombre_equipo
+                from {self.db_name}.turno t
+                join {self.db_name}.resonador r on t.id_resonador = r.id_resonador
+                where id_paciente = %s"""
+                
+                cursor.execute(query,(id_paciente,))
+                
+                rows = cursor.fetchall()
+                
+                return rows
+            except mysql.connector.Error as err:
+                raise err
     
     
     def modificar_turno(self, turno : Turno):
