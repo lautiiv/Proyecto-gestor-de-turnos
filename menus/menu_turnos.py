@@ -44,26 +44,8 @@ def menu_opcion_ver_turno(servicio):
             print("Ingrese una opcion valida")
             
         if menu == 1:
-            while True:
-                print("\n1. Para ingresar el ID del turno\n2. Mostrar ID de los turnos\n0. Salir")
-                try:
-                    input_id_turno = int(input("\nIngrese una opcion: "))
-                except ValueError:
-                    print("Ingrese un numero entero")
-                if input_id_turno == 1:
-                    try:
-                        id_del_turno = int(input("\nIngrese el ID del turno: "))
-                    except ValueError:
-                        print("Ingrese un numero entero")
-                    #METODO_PARA_DEVOLVER_INFORMACION_DEL_ID_TURNO
-                elif input_id_turno == 2:
-                    servicio.listar_id_turnos_pacientes()
-                    
-                    
-                elif input_id_turno == 0:
-                    break
-
-            
+            opcion_buscar_turno_por_id(servicio)
+   
         elif menu == 2:
             while True:
                 
@@ -92,3 +74,30 @@ def menu_opcion_ver_turno(servicio):
             
         else:
             print("Ingrese una opcion valida")
+            
+
+def opcion_buscar_turno_por_id(servicio):
+    while True:
+        print("\n1. Para ingresar el ID del turno\n2. Mostrar ID de los turnos\n0. Salir")
+        try:
+            sub_menu_buscar_turno_id = int(input("\nIngrese una opcion: "))
+        except ValueError:
+            print("Debe ingresar un numero")
+            continue
+        
+        if sub_menu_buscar_turno_id == 1:
+            try:
+                id_input = int(input("Ingrese el ID del turno: "))
+                servicio.informacion_turno(id_input)
+            except ValueError as err:
+                print(err)
+            break
+        
+        elif sub_menu_buscar_turno_id == 2:
+            servicio.listar_id_turnos_pacientes()
+            
+        elif sub_menu_buscar_turno_id == 0:
+            break
+        
+        else:
+            print("Ingrese una opcion valida")            

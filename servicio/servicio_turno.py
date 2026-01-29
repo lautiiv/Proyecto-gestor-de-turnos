@@ -78,4 +78,11 @@ class Servicio_Turnos:
         for valor in informacion_turnos:
             print(f'Nombre completo: {valor[2]} {valor[3]}, Estudio: {valor[1]}, ID_turno: {valor[0]} ')
         
+    def informacion_turno(self, id_turno):
+        informacion_del_turno = self.dao.informacion_turno_por_id_turno(id_turno)
         
+        if  informacion_del_turno == None:
+            raise ValueError("No se encontro un turno con ese ID")
+
+        else:
+            print(f'== INFORMACION DEL TURNO == \n Nombre: {informacion_del_turno[0]}, {informacion_del_turno[1]}\nEstudio: {informacion_del_turno[2]}\nFecha y hora: {informacion_del_turno[3]}\nEquipo: Resonador {informacion_del_turno[4]}')
