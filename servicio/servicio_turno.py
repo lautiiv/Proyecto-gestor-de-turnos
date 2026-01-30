@@ -85,7 +85,7 @@ class Servicio_Turnos:
             raise ValueError("No se encontro un turno con ese ID")
 
         else:
-            print(f'''== INFORMACION DEL TURNO == \nNombre: {informacion_del_turno[0]}, {informacion_del_turno[1]}\nEstudio: {informacion_del_turno[2]}\nFecha y hora: {informacion_del_turno[3]}\nEquipo: Resonador {informacion_del_turno[4]}''')
+            print(f'''\n== INFORMACION DEL TURNO == \nNombre: {informacion_del_turno[0]}, {informacion_del_turno[1]}\nEstudio: {informacion_del_turno[2]}\nFecha y hora: {informacion_del_turno[3]}\nEquipo: Resonador {informacion_del_turno[4]}''')
             
     def informacion_turno_por_id_paciente(self, id_paciente):
         

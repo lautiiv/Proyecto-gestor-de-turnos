@@ -14,8 +14,8 @@ class TurnoDAO(TurnoDAO_Interfaz):
         with self.db_conn.connect_to_mysql() as conn:
             try:
                 cursor = conn.cursor()
-                query = f'insert into {self.db_name}.turno (id_paciente,id_resonador,fecha,nombre_estudio) VALUES (%s, %s, %s, %s)'
-                values = (turno.id_paciente,turno.id_resonador,turno.fecha_hora,turno.nombre_estudio)
+                query = f'insert into {self.db_name}.turno (id_paciente,id_resonador,fecha,nombre_estudio,estado) VALUES (%s, %s, %s, %s, %s)'
+                values = (turno.id_paciente,turno.id_resonador,turno.fecha_hora,turno.nombre_estudio,turno.estado)
                 
                 cursor.execute(query,values)
                 conn.commit()

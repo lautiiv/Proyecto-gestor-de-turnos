@@ -26,7 +26,7 @@ def menu_opcion_uno_turno(servicio):
             return            
             
         try:
-            registrar_turno = Turno(None,id_paciente,id_resonador,fecha_hora,nombre_estudio)
+            registrar_turno = Turno(None,id_paciente,id_resonador,fecha_hora,nombre_estudio,"activo")
             servicio.registrar_turno(registrar_turno)
         except ValueError as err:
             print(f'Error : {err}')   
