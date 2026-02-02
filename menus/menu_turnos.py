@@ -111,3 +111,78 @@ def opcion_buscar_turno_por_id_paciente(servicio):
             break
         else:
             print("Ingrese una opcion valida")
+                     
+def modificar_turno(servicio):
+
+    #Incluye cancelar turno, reprogramar, cambiar equipo. Lo hace a traves de id_turno
+    while True:
+          
+        id_ingresado = ingresar_turno_y_validar(servicio)
+        print("\n== Modificar turno ==\n")
+
+        instancia = servicio.instanciar_turno_por_id(id_ingresado)
+        print(f'Usted ingreso el ID_TURNO: {instancia.id_turno}')
+        
+        print("\n1. Cancelar turno\n2. Reprogramar turno\n3.Cambiar equipo\n")
+        try:
+            menu_principal = int(input("Ingrese una opcion: "))
+        except ValueError:
+            print("Ingrese una opcion correcta (0-1-2-3)")
+            continue
+        
+        if menu_principal == 1:
+            pass
+        
+        elif menu_principal == 2:
+            pass
+        
+        elif menu_principal == 3:
+            pass
+        
+        elif menu_principal == 0:
+            break
+        
+        else:
+            print("Ingrese una opcion valida")
+            
+def ingresar_turno_y_validar(servicio):
+    #Cumple la primera parte de la funcion modificar turno. Solicita ID y/o muestra ID_TURNOS activos.
+    
+    while True:
+        print("\n== Modificar turno ==\n")
+        print("1. Para ingresar el ID del turno\n2. Mostrar lista de turnos activos\n0. Salir\n")
+        try:
+            opcion = int(input("Ingrese una opcion:"))            
+        except ValueError:
+            print("Ingrese una opcion valida")
+            continue
+            
+        if opcion == 1:
+            try:
+                id_turno_a_modificar = int(input("Ingrese el ID del turno que quiere modificar: "))
+            except ValueError:
+                print("El id debe ser un numero")
+                continue
+            return id_turno_a_modificar
+        elif opcion == 2:
+            print("\n== TURNOS ACTIVOS ==\n") 
+            turnos_activos = servicio.mostrar_id_turnos_activos()
+            for turno in turnos_activos:
+                print(turno)
+            print("\n")
+                
+        elif opcion == 0:
+            break
+        
+        else:
+            print("Ingrese una opcion valida")
+        
+def cancelar_turno(servicio,id_turno):
+    pass
+
+def reprogramar_turno(servicio,id_turno):
+    pass
+
+def cambiar_equipo(servicio,id_turno):
+    pass ##ESTA PUEDE QUEDAR PARA DESPUES
+    

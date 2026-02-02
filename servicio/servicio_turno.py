@@ -58,7 +58,6 @@ class Servicio_Turnos:
         
         if resultado == True:
             raise ValueError("No se pudo registrar el turno porque ya esta ocupado ese horario en ese resonador")
-
     
     def registrar_turno(self, turno : Turno):
         self.validar_turno(turno)
@@ -76,7 +75,7 @@ class Servicio_Turnos:
     def listar_id_turnos_pacientes(self):
         informacion_turnos = self.dao.listar_turnos_con_paciente()
         for valor in informacion_turnos:
-            print(f'Nombre completo: {valor[2]} {valor[3]}, Estudio: {valor[1]}, ID_turno: {valor[0]} ')
+            print(f'Nombre completo: {valor[2]} {valor[3]}, Estudio: {valor[1]}, Estado: {valor[4]}, ID_turno: {valor[0]} ')
         
     def informacion_turno(self, id_turno):
         informacion_del_turno = self.dao.informacion_turno_por_id_turno(id_turno)
@@ -107,3 +106,31 @@ class Servicio_Turnos:
         for estudio in turnos:
             print(f'Nombre estudio: {estudio[0]}\nFecha y hora: {estudio[1]}\nNombre del equipo: {estudio[2]}\n')
         return
+
+    def mostrar_id_turnos_activos(self):
+        #Muestra los id_turnos con el estado ACTIVO.
+        turnos = self.dao.listar_turnos_con_paciente()
+        turnos_activos = []
+        for turno in turnos:
+            if turno[4] == "activo":
+                turnos_activos.append(turno)
+        
+        return turnos_activos
+                
+    def instanciar_turno_por_id(self,id_turno):
+        #Realiza consulta al DAO para obtener los datos del turno, lo instancia y lo retorna.
+            
+        turno = self.dao.datos_turno_por_id_turno(id_turno)
+        
+        if turno is None:
+            raise ValueError(F'No existe turno con iud {id_turno}')
+
+        instancia_turno = Turno(
+            id_turno=turno[0],
+            id_paciente=turno[1],
+            id_resonador=turno[2],
+            fecha_hora=turno[3],
+            nombre_estudio=turno[4],
+            estado=turno[5]    
+        )
+        return instancia_turno

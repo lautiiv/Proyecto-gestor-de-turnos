@@ -43,11 +43,12 @@ class TurnoDAO(TurnoDAO_Interfaz):
                 raise err
             
     def listar_turnos_con_paciente(self)-> list:
+        #Devuelve una lista que se obtiene con consulta JOIN, informacion paciente: Nombre,apellido, informacion turno: nombre_estudio, estado, id_turno
         with self.db_conn.connect_to_mysql() as conn:
             try:
                 cursor = conn.cursor()
             
-                query = f'SELECT t.id_turno, t.nombre_estudio, p.nombre, p.apellido FROM {self.db_name}.turno t JOIN {self.db_name}.paciente p on (t.id_paciente = p.id_paciente)'
+                query = f'SELECT t.id_turno, t.nombre_estudio, p.nombre, p.apellido, t.estado FROM {self.db_name}.turno t JOIN {self.db_name}.paciente p on (t.id_paciente = p.id_paciente)'
             
                 cursor.execute(query)
                 rows = cursor.fetchall()
@@ -96,6 +97,21 @@ class TurnoDAO(TurnoDAO_Interfaz):
             except mysql.connector.Error as err:
                 raise err
     
+    def datos_turno_por_id_turno(self, id_turno) -> tuple:
+        #recibe un ID_TURNO, devuelve todos los datos del turno, permite instanciarlo en caso de querer hacerlo.
+        
+        with self.db_conn.connect_to_mysql() as conn:
+            try:
+                cursor = conn.cursor()
+                query = f'select id_turno, id_paciente, id_resonador, fecha, nombre_estudio, estado from {self.db_name}.turno where id_turno = %s'
+                cursor.execute(query,(id_turno,))
+            
+                resultado = cursor.fetchone()
+            
+                return resultado
+            except mysql.connector.Error as err:
+                raise err
+        
     
     def modificar_turno(self, turno : Turno):
         pass

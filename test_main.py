@@ -4,7 +4,7 @@ from db.db_conn import DBConn
 from servicio.servicio_paciente import Servicios_Pacientes
 from menus.menu_pacientes import opcion_uno_menu_pacientes, opcion_tres_menu_pacientes, opcion_cuatro_menu_pacientes, opcion_dos_menu_pacientes
 
-from menus.menu_turnos import menu_opcion_uno_turno, menu_opcion_ver_turno
+from menus.menu_turnos import menu_opcion_uno_turno, menu_opcion_ver_turno, modificar_turno
 from dao.turno_dao import TurnoDAO
 from servicio.servicio_turno import Servicio_Turnos
 
@@ -84,26 +84,23 @@ def turnos_menu():
     while True:
         try:
             print("\n== MENU TURNOS ==\n")            
-            print('1. Registrar turno\n2. Reprogramar turno\n3. Cancelar turno\n4. Ver turno por ID\n5. Mostrar turnos del dia\n0. Salir')
+            print('1. Registrar turno\n2. Modificar turno\n3. Ver turno por ID\n4. Mostrar turnos del dia\n0. Salir')
         
             opcion = int(input("\nSeleccione una opcion: "))
         except ValueError:
             print("Debe ingresar un numero")
+        
         if opcion == 1: 
             menu_opcion_uno_turno(servicio_turnos)
         
         elif opcion == 2:
-            pass
+            modificar_turno(servicio_turnos)
         
         elif opcion == 3:
-            pass
-        
-        elif opcion == 4:
             menu_opcion_ver_turno(servicio_turnos)
         
-        elif opcion == 5:
-            pass
-        
+        elif opcion == 4:
+            pass 
         elif opcion == 0:
             break
         else:
