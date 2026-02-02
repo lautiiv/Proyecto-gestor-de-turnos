@@ -120,10 +120,10 @@ def modificar_turno(servicio):
         id_ingresado = ingresar_turno_y_validar(servicio)
         print("\n== Modificar turno ==\n")
 
-        instancia = servicio.instanciar_turno_por_id(id_ingresado)
-        print(f'Usted ingreso el ID_TURNO: {instancia.id_turno}')
+        turno = servicio.instanciar_turno_por_id(id_ingresado)
+        print(f'Usted ingreso el ID_TURNO: {turno.id_turno}')
         
-        print("\n1. Cancelar turno\n2. Reprogramar turno\n3.Cambiar equipo\n")
+        print("\n1. Cancelar turno\n2. Reprogramar turno\n3. Cambiar equipo\n")
         try:
             menu_principal = int(input("Ingrese una opcion: "))
         except ValueError:
@@ -131,7 +131,8 @@ def modificar_turno(servicio):
             continue
         
         if menu_principal == 1:
-            pass
+            cancelar_turno(servicio,turno)
+            break
         
         elif menu_principal == 2:
             pass
@@ -177,9 +178,24 @@ def ingresar_turno_y_validar(servicio):
         else:
             print("Ingrese una opcion valida")
         
-def cancelar_turno(servicio,id_turno):
-    pass
-
+def cancelar_turno(servicio,turno : Turno):
+    #Recibe un turno, se utiliza su id, se cancela el turno.
+    while True:
+        try:
+            print("== Esta seguro que desea cancelar el turno? ==\n1. Si\n2. No")
+            confirmacion = int(input("Ingrese una opcion: "))
+        except ValueError:
+            print("Ingrese una opcion correcta")
+            continue
+    
+        if confirmacion == 1:
+            turno_cancelado = "cancelado"
+            servicio.modificar_estado_turno(turno,turno_cancelado)
+            break
+    
+        elif confirmacion == 2:
+            break
+    
 def reprogramar_turno(servicio,id_turno):
     pass
 

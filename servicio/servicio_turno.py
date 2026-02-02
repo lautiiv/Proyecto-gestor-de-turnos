@@ -134,3 +134,16 @@ class Servicio_Turnos:
             estado=turno[5]    
         )
         return instancia_turno
+    
+    def modificar_estado_turno(self,turno: Turno,nuevo_estado):
+        if turno.estado == "cancelado":
+            raise ValueError("El turno no se puede cancelar porque ya fue cancelado previamente")
+        
+        update_realizado = self.dao.modificar_estado_turno_dao(turno.id_turno,nuevo_estado)
+        
+        if update_realizado > 0:
+            cancelacion_exitosa = print(f"El turno con ID: {turno.id_turno} fue cancelado con exito")
+            return cancelacion_exitosa
+        else:
+            cancelacion_fallida = print(F"El turno con ID: {turno.id_turno} no pudo ser cancelado")
+            return cancelacion_fallida

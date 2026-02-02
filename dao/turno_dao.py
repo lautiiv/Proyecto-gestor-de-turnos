@@ -116,8 +116,20 @@ class TurnoDAO(TurnoDAO_Interfaz):
     def modificar_turno(self, turno : Turno):
         pass
         
-    def cancelar_turno(self):
-        pass
+    def modificar_estado_turno_dao(self, id_turno: int, estado: str)-> int:
+        #Recibe un id_turno y el nuevo estado del turno. Este puede ser, activo o cancelado por el momento. En un futuro se puede agregar confirmado, etc. 
+        #Devuelve el numero de lineas afectadas por el update.
+        with self.db_conn.connect_to_mysql() as conn:
+            try:
+                cursor = conn.cursor()
+                query = f'UPDATE {self.db_name}.turno SET estado = %s WHERE id_turno = %s'
+                
+                cursor.execute(query, (estado,id_turno))
+                conn.commit()
+                lineas_afectadas = cursor.rowcount
+                return lineas_afectadas
+            except mysql.connector.Error as err:
+                raise err                   
     
     def obtener_turno(self):
         pass
@@ -125,3 +137,5 @@ class TurnoDAO(TurnoDAO_Interfaz):
     def visualizar_turnos(self):
         pass
         
+    def cancelar_turno(self):
+        pass
