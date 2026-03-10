@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, time, timedelta
 from dominio.turno import Turno
 
 def menu_opcion_uno_turno(servicio):
@@ -202,3 +202,50 @@ def reprogramar_turno(servicio,id_turno):
 def cambiar_equipo(servicio,id_turno):
     pass ##ESTA PUEDE QUEDAR PARA DESPUES
     
+    
+def ver_turnos_por_dia_completo(servicio):
+   #Funcion que mostrara los turnos de los 3 equipos en el dia de la fecha seleccionada. 
+    while True:
+        
+        print("\n== Turnos ==\n")
+    
+        print("\n1. Ver los turnos de la fecha actual\n2. Ingresar fecha manualmente\n0. Cambiar salir\n")
+        try:
+            opcion_turnero = int(input("Ingrese una opcion: "))
+        except ValueError:
+            print("Ingrese una opcion correcta (0-1-2)")
+            continue
+        
+        if opcion_turnero == 1:
+            print("\n== Turnos del dia ==\n")
+            #funcion del servicio que muestre los turnos
+            
+            
+        elif opcion_turnero == 2:
+            #funcion que desarrolle esta opcion, donde se llama al servicio.
+            ver_turnero_por_fecha(servicio)
+        
+        elif opcion_turnero == 0:
+            break
+        
+        else:
+            print("Ingrese una opcion valida")
+
+
+def ver_turnero_por_fecha(servicio):
+    while True:
+        
+        fecha_input = input("Fecha (YYYY-MM-DD): ")
+        fecha_inicio = datetime.combine(fecha_input, time.min)
+        fecha_fin = fecha_inicio + timedelta(days=1)
+        try:
+            fecha = datetime.strptime(fecha_input,"%Y-%m-%d").date()
+        except ValueError:
+            print("Ingrese el formato correcto de la fecha")
+            continue
+        if fecha:
+            #metoodo del servicio para trraer el turnero de ese dia.
+            pass
+        else:
+            print("Ingrese una fecha valida")
+        
