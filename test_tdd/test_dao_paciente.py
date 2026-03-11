@@ -37,40 +37,48 @@ def conn():
             raise(err)
     return None            
 
+
+def conexion_paciente_dao():
+    db_conn = DBConn("test_config.ini")
+    dao = PacienteDAO(db_conn)
+    return dao
+
 class TestPacienteDao:
     #HELPER crea paciente para las siguientes pruebas
     def crear_paciente(self,conn):
         
-        with conn.cursor as cursor:
+        with conn.cursor() as cursor:
             cursor.execute("INSERT INTO test_turnos.paciente (nombre,apellido,edad,obra_social,telefono) VALUES ('Carlos','Gerson',29,'PAMI','2972321459')")
             conn.commit()
             return cursor.lastrowid
     
     
-    def test_registrar_paciente(self,conn):
+    def test_registrar_paciente(self,conn): 
         
+        dao = conexion_paciente_dao()
         
-        db_conn = DBConn("test_config.ini")
-        dao = PacienteDAO(db_conn)
+        paciente = Paciente("Pedro","Garcia",34,"PAMI","2954332211")
         
-        dao.registrar_paciente
+        id_paciente = dao.registrar_paciente(paciente)
         
-    
-    
+        select_paciente_registrado = dao.mostrar_paciente_por_id(id_paciente)
+        
+        assert id_paciente > 0
+        assert id_paciente is not None
+        assert select_paciente_registrado[0] == id_paciente
+        assert select_paciente_registrado[1] == paciente.nombre
+        assert select_paciente_registrado[2] == paciente.apellido
+        assert select_paciente_registrado[3] == paciente.edad
+        assert select_paciente_registrado[4] == paciente.obra_social
+        assert select_paciente_registrado[5] == paciente.telefono
     
     #Testea que el dao_mostrarpaciente_por_id devuelva la tupla con los datos que lleva un paciente.
     def test_mostrar_paciente_por_id_devuelve_datos(self,conn):
+
+        id_paciente = self.crear_paciente(conn)
+        dao = conexion_paciente_dao()
         
-        with conn.cursor() as cursor:
-            cursor.execute("INSERT INTO test_turnos.paciente (nombre,apellido,edad,obra_social,telefono) VALUES ('Carlos','Gerson',29,'PAMI','2972321459')")
-            conn.commit()
-            
-            id_paciente = cursor.lastrowid
-        db_conn=DBConn("test_config.ini")
-        dao = PacienteDAO(db_conn)
         paciente_test = dao.mostrar_paciente_por_id(id_paciente)
-        
-        #paciente_test_select = Paciente(id_paciente=id_paciente_test[0],nombre=id_paciente_test[1],apellido=id_paciente_test[2],edad=id_paciente_test[3],obra_social=id_paciente_test[4],telefono=id_paciente_test[5])
         
         
         assert paciente_test is not None
@@ -81,3 +89,107 @@ class TestPacienteDao:
         assert paciente_test[3] == 29
         assert paciente_test[4] == 'PAMI'
         assert paciente_test[5] == '2972321459'
+
+    def test_modificar_paciente(self,conn):
+
+        dao = conexion_paciente_dao()
+        
+        id_paciente = self.crear_paciente(conn)
+        
+        paciente_select = dao.mostrar_paciente_por_id(id_paciente)
+        
+        paciente= Paciente(paciente_select[1],paciente_select[2],paciente_select[3],paciente_select[4],paciente_select[5],paciente_select[0])
+        
+        paciente.nombre = "Anastacia"
+        paciente.apellido = "Perez"
+        paciente.edad = 50
+        paciente.obra_social = "Sempre"
+        paciente.telefono = "0303456"
+        
+        update = dao.modificar_paciente(paciente)
+        
+        paciente_test = dao.mostrar_paciente_por_id(id_paciente)
+        
+        assert update == 1
+        assert paciente_test is not None
+        assert paciente_test[0] == id_paciente
+        assert paciente_test[1] == paciente.nombre
+        assert paciente_test[2] == paciente.apellido
+        assert paciente_test[3] == paciente.edad
+        assert paciente_test[4] == paciente.obra_social
+        assert paciente_test[5] == paciente.telefono
+    
+    def test_borrar_paciente(self,conn):
+        
+        dao = conexion_paciente_dao()
+        
+        id_paciente = self.crear_paciente(conn)
+        
+        existe_paciente = dao.verificar_paciente_existe(id_paciente)
+        
+        delete_filas_afectadas = dao.eliminar_paciente(id_paciente)
+        
+        paciente_borrado = dao.verificar_paciente_existe(id_paciente)
+        
+        assert existe_paciente == True
+        assert delete_filas_afectadas == 1
+        assert paciente_borrado == False
+        
+
+        
+    def test_verificar_si_paciente_existe(self,conn):
+        
+        dao = conexion_paciente_dao()
+        id_paciente = self.crear_paciente(conn)
+        
+        existe_paciente = dao.verificar_paciente_existe(id_paciente)
+        
+        assert existe_paciente
+    
+    def test_verificar_paciente_no_existe(self,conn):
+        dao = conexion_paciente_dao()
+        
+        id_cero = dao.verificar_paciente_existe(0)
+        id_nuevenueve = dao.verificar_paciente_existe(99)
+        id_negativo = dao.verificar_paciente_existe(-1)
+        
+        assert id_cero is False
+        assert id_nuevenueve is False
+        assert id_negativo is False
+        
+    def test_mostrar_paciente_inexistente_por_id(self,conn):
+        dao = conexion_paciente_dao()
+        
+        id_negativo = dao.verificar_paciente_existe(-1)
+        id_alto = dao.verificar_paciente_existe(9999)
+        id_cero = dao.verificar_paciente_existe(0)
+        
+        assert id_negativo is False
+        assert id_alto is False
+        assert id_cero is False
+            
+    def test_eliminar_paciente_id_erroneo(self,conn):
+        dao = conexion_paciente_dao()
+        
+        id_negativo = dao.eliminar_paciente(-1)
+        id_alto = dao.eliminar_paciente(99999)
+        id_cero = dao.eliminar_paciente(0)
+        
+        assert id_negativo == 0
+        assert id_alto == 0
+        assert id_cero == 0
+        
+    def test_modificar_paciente_erroneo(self,conn):
+        dao = conexion_paciente_dao()
+        
+        paciente_menos_uno = Paciente("Carlos","Pepito",33,"Pami","29543322",-1)
+        paciente_alto = Paciente("Carlos","Pepito",33,"Pami","29543322",99999)
+        paciente_cero = Paciente("Carlos","Pepito",33,"Pami","29543322",-1)
+        
+        id_negativo = dao.modificar_paciente(paciente_menos_uno)
+        id_alto = dao.modificar_paciente(paciente_alto)
+        id_cero = dao.modificar_paciente(paciente_cero)
+        
+        assert id_negativo == 0
+        assert id_alto == 0
+        assert id_cero == 0
