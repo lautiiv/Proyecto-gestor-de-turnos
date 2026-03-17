@@ -1,7 +1,7 @@
 from dominio.turno import Turno
 from db.db_conn import DBConn
 from dao.turno_dao import TurnoDAO
-from datetime import datetime
+from datetime import datetime, timedelta, date
 from dao.paciente_dao import PacienteDAO
 
 class Servicio_Turnos:
@@ -147,3 +147,11 @@ class Servicio_Turnos:
         else:
             cancelacion_fallida = print(F"El turno con ID: {turno.id_turno} no pudo ser cancelado")
             return cancelacion_fallida
+        
+    def ver_turnos_por_dia(self,fecha : date) -> list:
+        fecha_inicio = datetime.combine(fecha, datetime.min.time())
+        fecha_fin = fecha_inicio + timedelta(days=1)
+        
+        turnos = self.dao.ver_turnos_por_dia(fecha_inicio,fecha_fin)
+        
+        return turnos

@@ -1,4 +1,4 @@
-from datetime import datetime, time, timedelta
+from datetime import datetime, date
 from dominio.turno import Turno
 
 def menu_opcion_uno_turno(servicio):
@@ -203,13 +203,13 @@ def cambiar_equipo(servicio,id_turno):
     pass ##ESTA PUEDE QUEDAR PARA DESPUES
     
     
-def ver_turnos_por_dia_completo(servicio):
+def ver_turnos_por_dia(servicio):
    #Funcion que mostrara los turnos de los 3 equipos en el dia de la fecha seleccionada. 
     while True:
         
         print("\n== Turnos ==\n")
     
-        print("\n1. Ver los turnos de la fecha actual\n2. Ingresar fecha manualmente\n0. Cambiar salir\n")
+        print("\n1. Ver los turnos de la fecha actual\n2. Ingresar fecha manualmente\n0. Salir\n")
         try:
             opcion_turnero = int(input("Ingrese una opcion: "))
         except ValueError:
@@ -217,10 +217,18 @@ def ver_turnos_por_dia_completo(servicio):
             continue
         
         if opcion_turnero == 1:
-            print("\n== Turnos del dia ==\n")
-            #funcion del servicio que muestre los turnos
+            hoy = date.today()
+            turnos = servicio.ver_turnos_por_dia(hoy)
             
+            if not turnos:
+                print(F"No hay turnos el dia de la fecha {hoy}")
+            else:
+                print(f"==TURNOS DE LA FECHA {hoy}")
+                for turno in turnos:
+                    fecha_turno,estudio, nombre, apellido, equipo = turno
+                    print(fecha_turno,estudio,nombre,apellido,f'equipo: {equipo}')
             
+
         elif opcion_turnero == 2:
             #funcion que desarrolle esta opcion, donde se llama al servicio.
             ver_turnero_por_fecha(servicio)
@@ -236,16 +244,24 @@ def ver_turnero_por_fecha(servicio):
     while True:
         
         fecha_input = input("Fecha (YYYY-MM-DD): ")
-        fecha_inicio = datetime.combine(fecha_input, time.min)
-        fecha_fin = fecha_inicio + timedelta(days=1)
+        
         try:
             fecha = datetime.strptime(fecha_input,"%Y-%m-%d").date()
         except ValueError:
             print("Ingrese el formato correcto de la fecha")
             continue
-        if fecha:
-            #metoodo del servicio para trraer el turnero de ese dia.
-            pass
+        
+        turnos = servicio.ver_turnos_por_dia(fecha)
+        
+        if turnos:
+            print(f"==TURNOS DE LA FECHA {fecha}")
+            for turno in turnos:
+                fecha_turno,estudio, nombre, apellido, equipo = turno
+                print(fecha_turno,estudio,nombre,apellido,f'equipo: {equipo}')
+            return
+        
         else:
-            print("Ingrese una fecha valida")
+            print(F'== NO HAY TURNOS EL DIA DE LA FECHA {fecha} ==')
+            return
+
         

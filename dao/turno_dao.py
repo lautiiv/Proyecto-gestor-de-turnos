@@ -131,6 +131,28 @@ class TurnoDAO(TurnoDAO_Interfaz):
             except mysql.connector.Error as err:
                 raise err                   
     
+    def ver_turnos_por_dia(self, fecha_inicio: datetime, fecha_fin: datetime) -> list:
+        
+        with self.db_conn.connect_to_mysql() as conn:
+            try:
+                cursor = conn.cursor()
+                query = f"""SELECT t.fecha, t.nombre_estudio, p.nombre, p.apellido, r.nombre_equipo
+                        FROM {self.db_name}.turno t
+                        JOIN {self.db_name}.paciente p
+                        ON t.id_paciente = p.id_paciente
+                        JOIN {self.db_name}.resonador r
+                        ON t.id_resonador = r.id_resonador
+                        WHERE t.fecha >= %s and t.fecha < %s
+                        ORDER BY (r.nombre_equipo) asc, (t.fecha) asc;
+                        """
+                        
+                cursor.execute(query, (fecha_inicio,fecha_fin))
+               
+                rows = cursor.fetchall()
+                return rows
+            except mysql.connector.Error as err:
+                raise err
+                    
     def obtener_turno(self):
         pass
     
