@@ -11,9 +11,9 @@ def opcion_uno_menu_pacientes(instancia_servicio_paciente):
                 
         try:
                         
-            instancia_servicio_paciente.registrar_paciente(nombre,apellido,edad,obra_social,telefono)
+            id_paciente = instancia_servicio_paciente.registrar_paciente(nombre,apellido,edad,obra_social,telefono)
                     
-            print("Paciente creado correctamente.")
+            print(f"Paciente registrado con exito. El id del paciente es: {id_paciente}")
         except Exception as e:
             print("Error:", e)
             break
@@ -62,19 +62,29 @@ def opcion_tres_menu_pacientes(instancia_servicios):
 def opcion_cuatro_menu_pacientes(instancia_servicios):
     while True:
         try:
-            opcion_paciente_a_mostrar = int(input("\n1. Si sabe el ID del paciente a mostrar\n2. Mostrar el ID de todos los pacientes\n3. Salir\n"))
+            opcion_paciente_a_mostrar = int(input("\n1. Si sabe el ID del paciente a mostrar\n2. Mostrar el ID de todos los pacientes\n0. Salir\n"))
             
             if opcion_paciente_a_mostrar == 1:
                 try:
                     id_a_mostrar = int(input("Ingrese el ID: "))
-                    instancia_servicios.mostrar_paciente_por_id(id_a_mostrar)
+                                    
                 except ValueError:
                     print("ERROR: Ingrese un dato valido")
+                    continue
+                
+                paciente = instancia_servicios.mostrar_paciente_por_id(id_a_mostrar)    
+                if paciente:
+                    print("\n== Informacion del paciente ==\n")
+                    print(f'Nombre: {paciente.nombre}\nApellido: {paciente.apellido}\nEdad: {paciente.edad}\nTelefono: {paciente.telefono}\nObra social: {paciente.obra_social}\nTelefono: {paciente.telefono}\nID_Paciente: {paciente.id_paciente}')
+                
+                else:
+                    print("No se encontro el paciente")
+                
             
             elif opcion_paciente_a_mostrar == 2:
                 instancia_servicios.mostrar_id_nombre_apellido_servicio()
                 
-            elif opcion_paciente_a_mostrar == 3:
+            elif opcion_paciente_a_mostrar == 0:
                 break
             else:
                 print("Ingrese una opcion valida. Debe ingresar un numero (1-2-3) ")

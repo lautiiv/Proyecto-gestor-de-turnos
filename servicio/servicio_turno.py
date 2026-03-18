@@ -75,14 +75,13 @@ class Servicio_Turnos:
     def listar_id_turnos_pacientes(self):
         informacion_turnos = self.dao.listar_turnos_con_paciente()
         for valor in informacion_turnos:
-            print(f'Nombre completo: {valor[2]} {valor[3]}, Estudio: {valor[1]}, Estado: {valor[4]}, ID_turno: {valor[0]} ')
+            print(f'Nombre: {valor[2]} {valor[3]}, Estudio: {valor[1]}, ID_turno: {valor[0]} ')
         
-    def informacion_turno(self, id_turno):
+    def informacion_turno_por_id_turno(self, id_turno):
         informacion_del_turno = self.dao.informacion_turno_por_id_turno(id_turno)
         
         if  informacion_del_turno == None:
             raise ValueError("No se encontro un turno con ese ID")
-
         else:
             print(f'''\n== INFORMACION DEL TURNO == \nNombre: {informacion_del_turno[0]}, {informacion_del_turno[1]}\nEstudio: {informacion_del_turno[2]}\nFecha y hora: {informacion_del_turno[3]}\nEquipo: Resonador {informacion_del_turno[4]}''')
             
@@ -99,13 +98,14 @@ class Servicio_Turnos:
         
         if not turnos:
             print(f"No se encontraron turnos para el paciente {nombre_paciente[0]}, {nombre_paciente[1]}")
+        else:
+            print(f'== INFORMACION DEL TURNO == \n')
+            print(f'Nombre: {nombre_paciente[0]}, {nombre_paciente[1]}\n')
         
-        print(f'== INFORMACION DEL TURNO == \n')
-        print(f'Nombre: {nombre_paciente[0]}, {nombre_paciente[1]}\n')
-        
-        for estudio in turnos:
-            print(f'Nombre estudio: {estudio[0]}\nFecha y hora: {estudio[1]}\nNombre del equipo: {estudio[2]}\n')
-        return
+            for estudio in turnos:
+                print(f'Nombre estudio: {estudio[0]}\nFecha y hora: {estudio[1]}\nNombre del equipo: {estudio[2]}\n')
+            return
+            
 
     def mostrar_id_turnos_activos(self):
         #Muestra los id_turnos con el estado ACTIVO.

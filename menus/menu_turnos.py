@@ -2,7 +2,7 @@ from datetime import datetime, date
 from dominio.turno import Turno
 
 def menu_opcion_uno_turno(servicio):
-    #id_turno,id_paciente,id_resonador,fecha,estudio
+    #Registra el turno
     print("1. Si usted sabe el id del paciente \n2. Si quiere ver los id de los pacientes.")
     try:
         opcion = int(input("\nSeleccione una opcion: "))
@@ -15,6 +15,9 @@ def menu_opcion_uno_turno(servicio):
             print("En que resonador desea registrar el turno? \n1. Resonador 1.5#1\n2. Resonador 1.5#2\n3. Resonador 3T")
             id_resonador = int(input("Ingrese el resonador que desea: "))
             fecha_str = input("Fecha (YYYY-MM-DD): ")
+            print("IMPORTANTE: Los turnos se registran CADA 30 MINUTOS")
+            print("Horarios permitidos: :00 o :30 (Ejemplos: 09:00, 09:30, 10:00, etc.)")
+            print("Los turnos solo pueden ser entre las 08:00 y 20:00hs")
             hora_str = input("Hora (HH:MM): ")
             nombre_estudio = input("Ingrese el nombre del estudio: ")
             #conversiones
@@ -36,7 +39,7 @@ def menu_opcion_uno_turno(servicio):
 
 def menu_opcion_ver_turno(servicio):
     while True:
-        print("\n== SUBMENU VER TURNO ==\n")
+        print("\n== ¿Por que ID desea buscar? ==\n")
         print("1. Buscar turno por ID del turno\n2. Buscar turno por id del paciente\n0. Salir\n")
         try:
             menu = int(input("Seleccione una opcion: "))
@@ -44,7 +47,7 @@ def menu_opcion_ver_turno(servicio):
             print("Ingrese una opcion valida")
             
         if menu == 1:
-            opcion_buscar_turno_por_id(servicio)
+            opcion_buscar_turno_por_id_turno(servicio)
    
         elif menu == 2:
             opcion_buscar_turno_por_id_paciente(servicio)
@@ -56,7 +59,7 @@ def menu_opcion_ver_turno(servicio):
             print("Ingrese una opcion valida")
             
 
-def opcion_buscar_turno_por_id(servicio):
+def opcion_buscar_turno_por_id_turno(servicio):
     while True:
         print("\n== SUB MENU BUSCAR POR TURNO ID_TURNO ==\n")   
         print("\n1. Para ingresar el ID del turno\n2. Mostrar ID de los turnos\n0. Salir")
@@ -69,7 +72,7 @@ def opcion_buscar_turno_por_id(servicio):
         if sub_menu_buscar_turno_id == 1:
             try:
                 id_input = int(input("Ingrese el ID del turno: "))
-                servicio.informacion_turno(id_input)
+                servicio.informacion_turno_por_id_turno(id_input)
             except ValueError as err:
                 print(err)
             break

@@ -71,7 +71,7 @@ class Servicios_Pacientes:
         try:
             id_nuevo_paciente = self.dao.registrar_paciente(nuevo_paciente)
             nuevo_paciente.id_paciente = id_nuevo_paciente
-            print("Paciente registrado con exito, a continuacion le muestro ID correspondiente")
+        
             return id_nuevo_paciente
         except Exception as e:
             raise ValueError(F"ERROR AL REGISTRAR PACIENTE: {e}")
@@ -88,7 +88,8 @@ class Servicios_Pacientes:
         if not datos_del_paciente:
             print("El ID ingresado no coincide con ningun usuario")
         else:
-            print(datos_del_paciente)
+            paciente = Paciente(datos_del_paciente[1],datos_del_paciente[2],datos_del_paciente[3],datos_del_paciente[4],datos_del_paciente[5],datos_del_paciente[0])
+            return paciente
     
     def eliminar_paciente(self,ID):
         
