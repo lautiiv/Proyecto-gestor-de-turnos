@@ -164,3 +164,13 @@ class Servicio_Turnos:
         turnos = self.dao.ver_turnos_por_dia(fecha_inicio,fecha_fin)
         
         return turnos
+    
+    def cambiar_equipo(self, turno: Turno, nuevo_equipo):
+                
+        se_puede_modificar = self.validar_turno(turno)
+        
+        if se_puede_modificar:
+            update_realizado = self.dao.cambiar_equipo_dao(turno,nuevo_equipo)
+        elif:
+            raise ValueError("El turno no se puede cambiar a ese equipo porque esta utilizado en ese horario.")
+        else:

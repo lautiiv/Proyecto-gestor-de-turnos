@@ -5,6 +5,7 @@ from servicio.servicio_paciente import Servicios_Pacientes
 from menus.menu_pacientes import registrar_paciente, eliminar_paciente, datos_paciente_por_id, modificar_paciente
 
 from menus.menu_turnos import registrar_turno, ver_turno_por_id, modificar_turno, ver_turnos_por_dia
+from menus.menu_turnos_modificar import modificar_turno_primera_parte
 from dao.turno_dao import TurnoDAO
 from servicio.servicio_turno import Servicio_Turnos
 
@@ -91,7 +92,7 @@ def turnos_menu():
             registrar_turno(servicio_turnos)
         
         elif opcion == 2:
-            modificar_turno(servicio_turnos)
+            modificar_turno_primera_parte(servicio_turnos)
         
         elif opcion == 3:
             ver_turno_por_id(servicio_turnos)

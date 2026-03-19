@@ -113,8 +113,21 @@ class TurnoDAO(TurnoDAO_Interfaz):
                 raise err
         
     
-    def modificar_turno(self, turno : Turno):
-        pass
+    def cambiar_equipo_dao(self, turno : Turno, nuevo_resonador)-> int:
+        #Recibe una instancia de turno y el ID_resonador del nuevo equipo. 
+        with self.db_conn.connect_to_mysql() as conn:
+            try:
+                cursor = conn.cursor()
+                query = f'UPDATE {self.db_name}.turno SET id_resonador = %s WHERE id_turno = %s'
+                
+                cursor.execute(query, (nuevo_resonador,turno.id_turno))
+                conn.commit()
+                
+                lineas_afectadas = cursor.rowcount
+                return lineas_afectadas
+            except mysql.connector.Error as err:
+                raise err
+        
         
     def modificar_estado_turno_dao(self, id_turno: int, estado: str)-> int:
         #Recibe un id_turno y el nuevo estado del turno. Este puede ser, activo o cancelado por el momento. En un futuro se puede agregar confirmado, etc. 

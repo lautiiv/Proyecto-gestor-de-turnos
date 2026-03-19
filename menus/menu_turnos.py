@@ -126,11 +126,11 @@ def modificar_turno(servicio):
         turno = servicio.instanciar_turno_por_id(id_ingresado)
         print(f'Usted ingreso el ID_TURNO: {turno.id_turno}')
         
-        print("\n1. Cancelar turno\n2. Confirmar turno\n3. Reprogramar turno\n4. Cambiar equipo\n")
+        print("\n1. Cancelar turno\n2. Confirmar turno\n3. Reprogramar turno\n4. Cambiar equipo\n0. Salir")
         try:
             menu_principal = int(input("Ingrese una opcion: "))
         except ValueError:
-            print("Ingrese una opcion correcta (0-1-2-3-4)")
+            print("Ingrese una opcion correcta (0-1-2-3-4-0)")
             continue
         
         if menu_principal == 1:
