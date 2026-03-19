@@ -107,15 +107,16 @@ class Servicio_Turnos:
             return
             
 
-    def mostrar_id_turnos_activos(self):
-        #Muestra los id_turnos con el estado ACTIVO.
+    def mostrar_id_turnos_estados(self,estado):
+        #Muestra los id_turnos con el estado ACTIVO y CONFIRMADOS.
         turnos = self.dao.listar_turnos_con_paciente()
         turnos_activos = []
         for turno in turnos:
-            if turno[4] == "activo":
+            if turno[4] == estado:
                 turnos_activos.append(turno)
         
         return turnos_activos
+
                 
     def instanciar_turno_por_id(self,id_turno):
         #Realiza consulta al DAO para obtener los datos del turno, lo instancia y lo retorna.
@@ -136,17 +137,25 @@ class Servicio_Turnos:
         return instancia_turno
     
     def modificar_estado_turno(self,turno: Turno,nuevo_estado):
-        if turno.estado == "cancelado":
-            raise ValueError("El turno no se puede cancelar porque ya fue cancelado previamente")
+        
+        if nuevo_estado == 'cancelado':
+            if turno.estado == "cancelado":
+                raise ValueError("El turno no se puede cancelar porque ya fue cancelado previamente")
+            
+        
+        if nuevo_estado == 'confirmado':
+            if turno.estado == "confirmado":
+                raise ValueError("El turno no se puede confirmar porque ya fue confirmado previamente")
+        
         
         update_realizado = self.dao.modificar_estado_turno_dao(turno.id_turno,nuevo_estado)
         
         if update_realizado > 0:
-            cancelacion_exitosa = print(f"El turno con ID: {turno.id_turno} fue cancelado con exito")
-            return cancelacion_exitosa
+            modificacion_exitosa = print(f"El turno con ID: {turno.id_turno} fue {nuevo_estado} con exito")
+            return modificacion_exitosa
         else:
-            cancelacion_fallida = print(F"El turno con ID: {turno.id_turno} no pudo ser cancelado")
-            return cancelacion_fallida
+            modificacion_fallida = print(F"El turno con ID: {turno.id_turno} no pudo ser modificado con exito")
+            return modificacion_fallida
         
     def ver_turnos_por_dia(self,fecha : date) -> list:
         fecha_inicio = datetime.combine(fecha, datetime.min.time())

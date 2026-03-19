@@ -126,11 +126,11 @@ def modificar_turno(servicio):
         turno = servicio.instanciar_turno_por_id(id_ingresado)
         print(f'Usted ingreso el ID_TURNO: {turno.id_turno}')
         
-        print("\n1. Cancelar turno\n2. Reprogramar turno\n3. Cambiar equipo\n")
+        print("\n1. Cancelar turno\n2. Confirmar turno\n3. Reprogramar turno\n4. Cambiar equipo\n")
         try:
             menu_principal = int(input("Ingrese una opcion: "))
         except ValueError:
-            print("Ingrese una opcion correcta (0-1-2-3)")
+            print("Ingrese una opcion correcta (0-1-2-3-4)")
             continue
         
         if menu_principal == 1:
@@ -138,9 +138,13 @@ def modificar_turno(servicio):
             break
         
         elif menu_principal == 2:
-            pass
+            confirmar_turno(servicio,turno)
+            break
         
         elif menu_principal == 3:
+            pass
+        
+        elif menu_principal == 4:
             pass
         
         elif menu_principal == 0:
@@ -154,9 +158,9 @@ def ingresar_turno_y_validar(servicio):
     
     while True:
         print("\n== Modificar turno ==\n")
-        print("1. Para ingresar el ID del turno\n2. Mostrar lista de turnos activos\n0. Salir\n")
+        print("1. Para ingresar el ID del turno\n2. Ver turnos ACTIVOS\n3. Ver turnos CONFIRMADOS\n4. Ver TODOS los turnos (excepto cancelados)\n0. Salir\n")
         try:
-            opcion = int(input("Ingrese una opcion:"))            
+            opcion = int(input("Ingrese una opcion: "))            
         except ValueError:
             print("Ingrese una opcion valida")
             continue
@@ -170,16 +174,31 @@ def ingresar_turno_y_validar(servicio):
             return id_turno_a_modificar
         elif opcion == 2:
             print("\n== TURNOS ACTIVOS ==\n") 
-            turnos_activos = servicio.mostrar_id_turnos_activos()
+            turnos_activos = servicio.mostrar_id_turnos_estados("activo")
             for turno in turnos_activos:
-                print(turno)
-            print("\n")
-                
+                #id_turno, t.nombre_estudio, p.nombre, p.apellido, t.estado
+                print(f'ID_Turno: {turno[0]}, Estudio: {turno[1]}, Nombre: {turno[2]} {turno[3]}, Estado: {turno[4]}')
+         
+        elif opcion == 3:
+            print("\n== TURNOS CONFIRMADOS ==\n")
+            turnos_confirmados = servicio.mostrar_id_turnos_estados("confirmado") 
+            for turno in  turnos_confirmados:
+                print(f'ID_Turno: {turno[0]}, Estudio: {turno[1]}, Nombre: {turno[2]} {turno[3]}, Estado: {turno[4]}')    
+        elif opcion == 4:
+            print("\n== TURNOS ACTIVOS Y CONFIRMADOS ==\n") 
+            turnos_confirmados = servicio.mostrar_id_turnos_estados("activo")
+            turnos_activos = servicio.mostrar_id_turnos_estados("confirmado")
+            
+            todos_los_turnos = turnos_confirmados + turnos_activos
+            
+            for turno in todos_los_turnos:
+                print(f'ID_Turno: {turno[0]}, Estudio: {turno[1]}, Nombre: {turno[2]} {turno[3]}, Estado: {turno[4]}')                  
         elif opcion == 0:
             break
         
         else:
             print("Ingrese una opcion valida")
+            
         
 def cancelar_turno(servicio,turno : Turno):
     #Recibe un turno, se utiliza su id, se cancela el turno.
@@ -190,21 +209,42 @@ def cancelar_turno(servicio,turno : Turno):
         except ValueError:
             print("Ingrese una opcion correcta")
             continue
-    
         if confirmacion == 1:
-            turno_cancelado = "cancelado"
-            servicio.modificar_estado_turno(turno,turno_cancelado)
+            try:
+                turno_cancelado = "cancelado"
+                servicio.modificar_estado_turno(turno,turno_cancelado)
+                
+            except ValueError as e:
+                print(e)
             break
-    
+            
         elif confirmacion == 2:
             break
     
+def confirmar_turno(servicio,turno : Turno):
+    #Recibe un turno, se utiliza su id, se confirma el turno.
+    while True:
+        try:
+            print("== Esta seguro que desea confirmar el turno? ==\n1. Si\n2. No")
+            confirmacion = int(input("Ingrese una opcion: "))
+        except ValueError:
+            print("Ingrese una opcion correcta")
+            continue
+        if confirmacion == 1:
+            try:
+                turno_confirmado = "confirmado"
+                servicio.modificar_estado_turno(turno,turno_confirmado)                
+            except ValueError as e:
+                print(e)
+            break
+        elif confirmacion == 2:
+            break
+       
 def reprogramar_turno(servicio,id_turno):
-    pass
+   pass 
 
 def cambiar_equipo(servicio,id_turno):
-    pass ##ESTA PUEDE QUEDAR PARA DESPUES
-    
+    pass
     
 def ver_turnos_por_dia(servicio):
    #Funcion que mostrara los turnos de los 3 equipos en el dia de la fecha seleccionada. 
