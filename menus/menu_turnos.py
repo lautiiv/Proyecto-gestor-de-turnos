@@ -1,7 +1,7 @@
 from datetime import datetime, date
 from dominio.turno import Turno
 
-def menu_opcion_uno_turno(servicio):
+def registrar_turno(servicio):
     #Registra el turno
     print("1. Si usted sabe el id del paciente \n2. Si quiere ver los id de los pacientes.")
     try:
@@ -37,7 +37,7 @@ def menu_opcion_uno_turno(servicio):
         servicio.listar_pacientes()
 
 
-def menu_opcion_ver_turno(servicio):
+def ver_turno_por_id(servicio):
     while True:
         print("\n== ¿Por que ID desea buscar? ==\n")
         print("1. Buscar turno por ID del turno\n2. Buscar turno por id del paciente\n0. Salir\n")

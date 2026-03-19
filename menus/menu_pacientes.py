@@ -1,6 +1,6 @@
 # OPCION CREAR PACIENTE
 
-def opcion_uno_menu_pacientes(instancia_servicio_paciente):
+def registrar_paciente(instancia_servicio_paciente):
      while True: 
                 
         nombre = input("Nombre: ")
@@ -33,10 +33,10 @@ def opcion_uno_menu_pacientes(instancia_servicio_paciente):
 
 # OPCION ELIMINAR PACIENTE
 
-def opcion_tres_menu_pacientes(instancia_servicios): 
+def eliminar_paciente(instancia_servicios): 
     while True:
         try:
-            opcion_para_eliminar = int(input("\n1. Si sabe el ID del paciente a eliminar\n2. Mostrar el ID de todos los pacientes\n3. Salir\n"))
+            opcion_para_eliminar = int(input("\n1. Si sabe el ID del paciente a eliminar\n2. Mostrar el ID de todos los pacientes\n0. Salir\n"))
                         
             if opcion_para_eliminar == 1:
                 try:
@@ -50,16 +50,16 @@ def opcion_tres_menu_pacientes(instancia_servicios):
                 print("\nLISTA DE PACIENTES: \n")
                 instancia_servicios.mostrar_id_nombre_apellido_servicio()
                             
-            elif opcion_para_eliminar == 3:
+            elif opcion_para_eliminar == 0:
                 break
             else:
-                print("Ingrese una opcion valida. Debe ingresar un numero (1-2-3) ")
+                print("Ingrese una opcion valida. Debe ingresar un numero (1-2-0) ")
         except ValueError:
             print("Dato no valido, debe ser un numero")
                 
 #OPCION MOSTRAR PACIENTE POR ID
 
-def opcion_cuatro_menu_pacientes(instancia_servicios):
+def datos_paciente_por_id(instancia_servicios):
     while True:
         try:
             opcion_paciente_a_mostrar = int(input("\n1. Si sabe el ID del paciente a mostrar\n2. Mostrar el ID de todos los pacientes\n0. Salir\n"))
@@ -94,10 +94,10 @@ def opcion_cuatro_menu_pacientes(instancia_servicios):
 
 #OPCION MODIFICAR PACIENTE POR ID
 
-def opcion_dos_menu_pacientes(instancia_servicios):
+def modificar_paciente(instancia_servicios):
     while True:
         try:
-            input_menu = int(input("\n1. Si sabe el ID del paciente a modificar\n2. Mostrar el ID de todos los pacientes\n3. Salir\n"))
+            input_menu = int(input("\n1. Si sabe el ID del paciente a modificar\n2. Mostrar el ID de todos los pacientes\n0. Salir\n"))
             
             if input_menu == 1:
                 try:
@@ -120,10 +120,10 @@ def opcion_dos_menu_pacientes(instancia_servicios):
                 instancia_servicios.mostrar_id_nombre_apellido_servicio()
             
             
-            elif input_menu == 3:
+            elif input_menu == 0:
                 break
             else:
-                print("Ingrese una opcion valida. Debe ingresar un numero (1-2-3) ")
+                print("Ingrese una opcion valida. Debe ingresar un numero (1-2-0) ")
                 
         except ValueError:
             print("Dato no valido debe ser un numero")

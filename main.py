@@ -2,9 +2,9 @@ from dao.paciente_dao import PacienteDAO
 from dominio.paciente import Paciente
 from db.db_conn import DBConn
 from servicio.servicio_paciente import Servicios_Pacientes
-from menus.menu_pacientes import opcion_uno_menu_pacientes, opcion_tres_menu_pacientes, opcion_cuatro_menu_pacientes, opcion_dos_menu_pacientes
+from menus.menu_pacientes import registrar_paciente, eliminar_paciente, datos_paciente_por_id, modificar_paciente
 
-from menus.menu_turnos import menu_opcion_uno_turno, menu_opcion_ver_turno, modificar_turno, ver_turnos_por_dia
+from menus.menu_turnos import registrar_turno, ver_turno_por_id, modificar_turno, ver_turnos_por_dia
 from dao.turno_dao import TurnoDAO
 from servicio.servicio_turno import Servicio_Turnos
 
@@ -52,17 +52,17 @@ def pacientes_menu():
             opcion = int(input("\nSeleccione una opcion: "))
             
             if opcion == 1:
-                opcion_uno_menu_pacientes(instancia_servicio_pacientes)
+                registrar_paciente(instancia_servicio_pacientes)
             
             elif opcion == 2:
-                opcion_dos_menu_pacientes(instancia_servicio_pacientes)
+                modificar_paciente(instancia_servicio_pacientes)
                 
             
             elif opcion == 3:
-                opcion_tres_menu_pacientes(instancia_servicio_pacientes)
+                eliminar_paciente(instancia_servicio_pacientes)
             
             elif opcion == 4:
-                opcion_cuatro_menu_pacientes(instancia_servicio_pacientes)
+                datos_paciente_por_id(instancia_servicio_pacientes)
             
             elif opcion == 5:
                 print("\nLISTA DE PACIENTES: \n")
@@ -88,13 +88,13 @@ def turnos_menu():
             print("Debe ingresar un numero")
         
         if opcion == 1: 
-            menu_opcion_uno_turno(servicio_turnos)
+            registrar_turno(servicio_turnos)
         
         elif opcion == 2:
             modificar_turno(servicio_turnos)
         
         elif opcion == 3:
-            menu_opcion_ver_turno(servicio_turnos)
+            ver_turno_por_id(servicio_turnos)
         
         elif opcion == 4:
             ver_turnos_por_dia(servicio_turnos)
