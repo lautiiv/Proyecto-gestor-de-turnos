@@ -13,7 +13,7 @@ Modulo pacientes:
 Modulo turnos:
 - **Registrar turno**
 - **Modificar turno**:
-  - Ver Turnos confirmados y activos. 
+  - Ver Turnos confirmados y activos 
   - Confirmar turno
   - Cancelar turno
   - Reprogramar turno
@@ -267,19 +267,22 @@ de una manera adecuada. Permite refactorizar sin romper todo el proyecto.
   -Aceptar que esto es parte del proceso y que en un comienzo no lo sepa como hacerlo es normal. Lo importante es que con paciencia y practica lo voy a resolver.
 
 **6. Importancia de diseñar la base de datos y el diagrama de clases**
--Al tener el diseño previo, al momento de desarrollar la aplicacion se presentaron muchos problemas menos.
--Es fundamental para no tener incongruencia de datos.
--La importancia de las claves foraneas y las relaciones bien planteadas para evitar datos huerfanos y consultas raras.
+- Al tener el diseño previo, al momento de desarrollar la aplicacion se presentaron muchos problemas menos.
+- Es fundamental para no tener incongruencia de datos.
+- La importancia de las claves foraneas y las relaciones bien planteadas para evitar datos huerfanos y consultas raras.
 
 **7. El codigo siempre se puede mejorar**
--Cada vez que lo leo, encuentro algo para pulir. El codigo perfecto no existe pero si es muy importante que sea mantenible.
+- Cada vez que lo leo, encuentro algo para pulir. El codigo perfecto no existe pero si es muy importante que sea mantenible.
 - Saber cuando parar y darlo por terminado.
 
 **Agradecimientos**
-A mi profesora de Programación, Ivana Soledad Rojas Córsico, que me brindó contenido de excelente calidad para poder comprender todos los conocimientos aplicados en este proyecto. Su pasión por la enseñanza fue clave para que llegue hasta acá.
+
+A mi profesora de Programación, Ivana Soledad Rojas Córsico, que me brindó contenido de excelente calidad para poder comprender todos los conocimientos aplicados en este proyecto. Su pasión por la enseñanza fue clave para que desarrolle este proyecto.
 
 A mi profesor de Bases de Datos, Iván Gerlero, que me brindó todo el conocimiento que hoy está aplicado en este proyecto en lo relacionado a la base de datos.
 
 A ambos gracias por explicarme las veces que hiciera falta, y por enseñarme que el software no es solo código, sino estructura, lógica y paciencia.
+
 **Autor**
+
 Lautaro Emanuel Villafañe - https://www.linkedin.com/in/lautarovillafa%C3%B1e/
