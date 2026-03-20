@@ -15,14 +15,17 @@ def modificar_turno_primera_parte(servicio):
             continue           
           
         if opcion_turnero == 1:  
-            id_ingresado = ingresar_turno_y_validar(servicio)
-            print("\n== Modificar turno ==\n")
+            try:
+                id_ingresado = ingresar_turno_y_validar(servicio)
+                print("\n== Modificar turno ==\n")
 
-            turno = servicio.instanciar_turno_por_id(id_ingresado)
-            print(f'Usted ingreso el ID_TURNO: {turno.id_turno}')
+                turno = servicio.instanciar_turno_por_id(id_ingresado)
+                print(f'Usted ingreso el ID_TURNO: {turno.id_turno}')
             
-            #SEGUNDA PARTE DE LA OPCION UPDATE.
-            modificar_turno_segunda_parte(servicio,turno)
+                #SEGUNDA PARTE DE LA OPCION UPDATE.
+                modificar_turno_segunda_parte(servicio,turno)
+            except ValueError as e:
+                print(f"Error: {e}")
         
         elif opcion_turnero == 2:
             print("\n== TURNOS ACTIVOS ==\n")
