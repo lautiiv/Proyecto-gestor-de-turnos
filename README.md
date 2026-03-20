@@ -232,6 +232,7 @@ diagrama_de_clases_GDT.png
 modelo_relacional_GDT.png
 
 **Lo que aprendi**
+
 **0. Diseñar antes de codear**
 - Aprender que diseñar el sistema antes de tirar código no es pérdida de tiempo, es la base de todo.
 - Pensar primero: ¿qué entidades hay? (paciente, turno, resonador), ¿cómo se relacionan?, ¿qué operaciones necesita el usuario?
