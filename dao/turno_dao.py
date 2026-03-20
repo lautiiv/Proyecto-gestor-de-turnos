@@ -165,7 +165,17 @@ class TurnoDAO(TurnoDAO_Interfaz):
                 return rows
             except mysql.connector.Error as err:
                 raise err
-                    
+    def nombre_equipo(self, id_resonador):
+        with self.db_conn.connect_to_mysql() as conn:
+            try:
+                cursor = conn.cursor()
+                query = f'SELECT nombre_equipo FROM {self.db_name}.resonador WHERE id_resonador = %s'
+                cursor.execute(query,(id_resonador,))
+                
+                resultado = cursor.fetchone()
+                return resultado
+            except mysql.connector.Error as err:
+                raise err
     def obtener_turno(self):
         pass
     
@@ -173,4 +183,7 @@ class TurnoDAO(TurnoDAO_Interfaz):
         pass
         
     def cancelar_turno(self):
+        pass
+    
+    def modificar_turno(self, turno):
         pass

@@ -92,12 +92,62 @@ def reprogramar_turno(servicio, turno: Turno):
            print("Ingrese una opcion correcta")
            continue
        if confirmacion == 1:
-            pass
+            nombre_equipo = servicio.nombre_equipo(turno.id_resonador)
+            print(F'Fecha actual: {turno.fecha_hora}n\ Equipo actual: {nombre_equipo} ')
             
+            pedir_nuevos_datos_turno(servicio,turno)
+
        elif confirmacion == 2:
            break
        else: 
            print("Ingrese 1 o 2")
+           
+def pedir_nuevos_datos_turno(servicio, turno_actual):
+    fecha_hora_final = turno_actual.fecha_hora
+    resonador_final = turno_actual.id_resonador
+    
+    while True:
+        print("\n1. Nueva fecha\n2. Nueva hora\n3. Nuevo equipo\n0.Salir y confirmar modificacion")
+        try:
+            opcion = int(input('Ingrese una opcion: '))
+        except ValueError:
+            print("Ingrese una opcion valida (1-2-3-0)")
+        
+        
+        if opcion == 1:
+            print("Ingrese la nueva fecha")
+            
+            try:
+                fecha_str = input("Fecha (YYYY-MM-DD): ")
+            except ValueError:
+                print("Ingrese una fecha con el formato correcto")
+            nueva_fecha = datetime.strptime(fecha_str, "%Y-%m-%d").date()
+            fecha_hora_final = datetime.combine(nueva_fecha, fecha_hora_final.time())
+            print("Fecha actualizada")
+                
+        elif opcion == 2:
+            print("IMPORTANTE: Los turnos se registran CADA 30 MINUTOS")
+            print("Horarios permitidos: :00 o :30 (Ejemplos: 09:00, 09:30, 10:00, etc.)")
+            print("Los turnos solo pueden ser entre las 08:00 y 20:00hs")
+            try:
+                hora_str = input("Hora (HH:MM): ")
+            except ValueError:
+                print(("Ingrese una hora con el formato correcto (HH:MM)"))
+            nueva_hora = datetime.strptime(hora_str, "%H:%M").time()
+            fecha_hora_final = datetime.combine(fecha_hora_final.date(),nueva_hora)
+        elif opcion == 3:
+            print("En que resonador desea registrar el turno? \n1. Resonador 1.5#1\n2. Resonador 1.5#2\n3. Resonador 3T")
+            try:
+                nuevo_resonador = int(input("Ingrese el resonador que desea: "))
+                if nuevo_resonador in [1, 2, 3]:
+                    resonador_final = nuevo_resonador
+            except ValueError:
+                print("Ingrese una opcion valida")
+                
+        elif opcion == 0:
+            return fecha_hora_final, resonador_final
+        else:
+            print("Ingrese una opcion valida")
 
 def cambiar_equipo(servicio, turno: Turno):
     while True:
