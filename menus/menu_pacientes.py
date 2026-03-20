@@ -111,7 +111,6 @@ def modificar_paciente(instancia_servicios):
                     
                     modificar_datos_pacientes(instancia_servicios,paciente)
                     
-                    print("Desea modificar algun atributo atributo? \n")
                     
                 except ValueError:
                     print("ERROR: Ingrese un dato valido")
