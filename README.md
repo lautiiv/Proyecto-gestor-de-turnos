@@ -13,6 +13,7 @@ Modulo pacientes:
 Modulo turnos:
 - **Registrar turno**
 - **Modificar turno**:
+  - Ver Turnos confirmados y activos. 
   - Confirmar turno
   - Cancelar turno
   - Reprogramar turno
@@ -230,5 +231,54 @@ diagrama_de_clases_GDT.png
 
 modelo_relacional_GDT.png
 
+**Lo que aprendi**
+**0. Diseñar antes de codear**
+- Aprender que diseñar el sistema antes de tirar código no es pérdida de tiempo, es la base de todo.
+- Pensar primero: ¿qué entidades hay? (paciente, turno, resonador), ¿cómo se relacionan?, ¿qué operaciones necesita el usuario?
+- Hacer el diagrama de clases y el modelo relacional antes de escribir una línea de código me ahorró horas de volver atrás.
+- Entender que codear es la última parte. Antes viene entender el problema, diseñar la solución, y después recién escribir código.
+- Esto no significa planificar todo al detalle desde el principio, pero tener un mapa claro del sistema ayuda a no perderse.
+
+**1. Arquitectura de software**
+- Separar en capas (DAO-Dominio,Servicio,Menu,Main,Test) es fundamental para poder recorrer el proyecto, encontrar la informacion que estas buscando, saber donde modificar y poder trabajar
+de una manera adecuada. Permite refactorizar sin romper todo el proyecto.
+- La responsabilidad de cada capa, dao: devuelve informacion de la base de datos, menu imprime imformacion y permite navegar por el menu, servicio valida las reglas y se comunica con el dao
+- Las interfaces son un mapa del dao y excelente documentacion.
+- Es fundamental que los nombres sean claros porque el codigo se lee mas veces de lo que escribe.
+- El principio de responsabilidad unica tiene gran importancia para que una funcion no haga 10 tareas diferentes, tener esto como guia permite escribir codigo mas limpio
+  
+**2. Git como herramienta de trabajo**
+- Aprendi a utilizar las ramas y su funcionalidad.
+- La importancia de los commits para trabajar con tranquilidad y que quede registro de todo el trabajo.
+
+**3. Validaciones, reglas de negocio y manejo de errores** 
+- La importancia y dificultad de validar las reglas del negocio.
+- Separar validaciones del menu y ponerlas en el servicio. El menu pregunta y el servicio decide.
+- Utilizar try/except para manejar los errores, su importancia en el debugging y como influyen en la experiencia de usuario.
+
+**4. Testing**
+- Utilizar pytest
+- Como crear una base de datos para testear, testear y borrarla para poder testear el dao correctamente sin que haya informacion previa.
+- Que al correr los test despues de estar modificando lo trabajo, estos ya no funcionan y prestar atencion a que esta pasando.
+**5. Manejo del tiempo, paciencia y frustacion**
+  -Refactorizar puede llevar mucho tiempo
+  -Solucionar problemas puede ser muy dificil
+  -Aceptar que esto es parte del proceso y que en un comienzo no lo sepa como hacerlo es normal. Lo importante es que con paciencia y practica lo voy a resolver.
+
+**6. Importancia de diseñar la base de datos y el diagrama de clases**
+-Al tener el diseño previo, al momento de desarrollar la aplicacion se presentaron muchos problemas menos.
+-Es fundamental para no tener incongruencia de datos.
+-La importancia de las claves foraneas y las relaciones bien planteadas para evitar datos huerfanos y consultas raras.
+
+**7. El codigo siempre se puede mejorar**
+-Cada vez que lo leo, encuentro algo para pulir. El codigo perfecto no existe pero si es muy importante que sea mantenible.
+- Saber cuando parar y darlo por terminado.
+
+**Agradecimientos**
+A mi profesora de Programación, Ivana Soledad Rojas Córsico, que me brindó contenido de excelente calidad para poder comprender todos los conocimientos aplicados en este proyecto. Su pasión por la enseñanza fue clave para que llegue hasta acá.
+
+A mi profesor de Bases de Datos, Iván Gerlero, que me brindó todo el conocimiento que hoy está aplicado en este proyecto en lo relacionado a la base de datos.
+
+A ambos gracias por explicarme las veces que hiciera falta, y por enseñarme que el software no es solo código, sino estructura, lógica y paciencia.
 **Autor**
-Lautaro E. Villafañe - 
+Lautaro Emanuel Villafañe - https://www.linkedin.com/in/lautarovillafa%C3%B1e/
