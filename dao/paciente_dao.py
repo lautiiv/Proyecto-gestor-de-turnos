@@ -58,6 +58,7 @@ class PacienteDAO(PacienteDAOInterfaz):
             
     
     def mostrar_todos_pacientes(self) -> list:
+        #REFACTORIZAR
         with self.db_conn.connect_to_mysql() as conn:
             try:
                 cursor = conn.cursor()

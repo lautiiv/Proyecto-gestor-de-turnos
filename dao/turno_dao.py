@@ -78,7 +78,8 @@ class TurnoDAO(TurnoDAO_Interfaz):
                 raise err
                   
     def informacion_turno_por_id_paciente(self, id_paciente: int)-> list :
-        #recibe un id_paciente, realiza un join para retornar una lista con nombre_estudio, fecha y en que equipo se realiza
+        #recibe un id_paciente, realiza un join para retornar una lista con los estudios del paciente
+        #La informacion es nombre_estudio, fecha y en que equipo se realiza
         
         with self.db_conn.connect_to_mysql() as conn:
             try:
@@ -111,26 +112,10 @@ class TurnoDAO(TurnoDAO_Interfaz):
                 return resultado
             except mysql.connector.Error as err:
                 raise err
-        
-    
-    def cambiar_equipo_dao(self, turno : Turno, nuevo_resonador)-> int:
-        #Recibe una instancia de turno y el ID_resonador del nuevo equipo. 
-        with self.db_conn.connect_to_mysql() as conn:
-            try:
-                cursor = conn.cursor()
-                query = f'UPDATE {self.db_name}.turno SET id_resonador = %s WHERE id_turno = %s'
-                
-                cursor.execute(query, (nuevo_resonador,turno.id_turno))
-                conn.commit()
-                
-                lineas_afectadas = cursor.rowcount
-                return lineas_afectadas
-            except mysql.connector.Error as err:
-                raise err
-        
+              
         
     def modificar_estado_turno_dao(self, id_turno: int, estado: str)-> int:
-        #Recibe un id_turno y el nuevo estado del turno. Este puede ser, activo o cancelado por el momento. En un futuro se puede agregar confirmado, etc. 
+        #Recibe un id_turno y el nuevo estado del turno. Este puede ser, activo o cancelado o confir 
         #Devuelve el numero de lineas afectadas por el update.
         with self.db_conn.connect_to_mysql() as conn:
             try:
@@ -176,18 +161,7 @@ class TurnoDAO(TurnoDAO_Interfaz):
                 return resultado
             except mysql.connector.Error as err:
                 raise err
-    def obtener_turno(self):
-        pass
-    
-    def visualizar_turnos(self):
-        pass
-        
-    def cancelar_turno(self):
-        pass
-    
-    def modificar_turno(self, turno):
-        pass
-    
+   
     def actualizar_turno_dao(self, id_turno, nueva_fecha, nuevo_resonador):
         with self.db_conn.connect_to_mysql() as conn:
             try:
