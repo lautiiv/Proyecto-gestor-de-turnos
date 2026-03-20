@@ -159,29 +159,6 @@ def pedir_nuevos_datos_turno(servicio, turno_actual):
         else:
             print("Ingrese una opcion valida")
 
-def cambiar_equipo(servicio, turno: Turno):
-    while True:
-        try:
-            print("== Esta seguro que desea cambiar de equipo? ==\n1. Si\n2. No")
-            confirmacion = int(input("Ingrese una opcion: "))
-        except ValueError:
-            print("Ingrese una opcion correcta")
-            continue
-        if confirmacion == 1:
-            print("En que resonador desea registrar el turno? \n1. Resonador 1.5#1\n2. Resonador 1.5#2\n3. Resonador 3T")
-            try:
-                id_resonador = int(input("Ingrese el resonador que desea: "))
-            except ValueError:
-                print("Debe ingresar un numero")
-
-            
-            servicio.cambiar_equipo(turno,id_resonador)
-        
-        elif confirmacion == 2:
-            break
-        else:
-            print("Ingrese 1 o 2")
-        
             
 
 def modificar_turno(servicio,accion, estado ,turno : Turno):
