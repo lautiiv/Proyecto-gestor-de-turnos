@@ -1,6 +1,6 @@
 🏥Sistema de gestión de turnos para estudios de resonancia magnética.
 
-Sistema desarrollado en **Python** con **MySQL** para la gestión integral de turnos en estudios de resonancia magnética. Permite administrar pacientes y turnos de manera eficiente, con funcionalidades específicas para centros médicos.
+Sistema desarrollado en **Python** con **MySQL** para la gestión integral de turnos en estudios de resonancia magnética. Permite administrar pacientes y turnos de manera eficiente.
 Se divide en dos módulos principales
 
 Modulo pacientes:
@@ -13,12 +13,15 @@ Modulo pacientes:
 Modulo turnos:
 - **Registrar turno**
 - **Modificar turno**:
+  - Confirmar turno
   - Cancelar turno
   - Reprogramar turno
-  - Cambiar equipo
+     - Fecha
+     - hora
+     - Cambiar equipo
 - **Ver turnos de un paciente por ID del paciente**
 - **Ver informacion de turno especifico**: Busqueda por ID de turno
-- **Mostrar turnos por dí**a:
+- **Mostrar turnos por día**:
   - Permite usar la fecha actual o ingresar una manual
   - Los turnos se muestran ordenados cronológicamente
   - Se agrupan por resonador
@@ -62,7 +65,7 @@ Proyecto-gestor-de-turnos/
 │   ├── __init__.py
 │   ├── menu_pacientes.py             # Menú de operaciones de pacientes
 │   └── menu_turnos.py                # Menú de operaciones de turnos
-│
+│   └── menu_turnos_modificar.py      # Menú de modificacion de turnos
 ├── servicio/                         # Capa de lógica de negocio
 │   ├── __init__.py
 │   ├── servicio_paciente.py          # Lógica de negocio para pacientes
@@ -156,9 +159,9 @@ CREATE TABLE turno (
 
 -- Insertar resonadores
 INSERT INTO resonador (nombre_equipo) VALUES 
-('Resonador 1 - 1.5T'),
-('Resonador 2 - 3.0T'),
-('Resonador 3 - Abierto');
+('1.5T #1'),
+('1.5T #2'),
+('3T');
 
 -- Insertar pacientes de ejemplo
 
@@ -172,11 +175,11 @@ INSERT INTO paciente (nombre, apellido, edad, obra_social, telefono) VALUES
 -- Insertar turnos de ejemplo
 
 INSERT INTO turno (id_paciente, id_resonador, fecha, nombre_estudio, estado) VALUES
-(1, 1, '2024-12-10 09:00:00', 'Rm cerebro', 'activo'),
-(2, 2, '2024-12-10 10:30:00', 'Rm de columna', 'activo'),
-(3, 1, '2024-12-10 12:00:00', 'Rm de rodilla', 'activo'),
-(4, 3, '2024-12-11 09:00:00', 'Rm de abdomen', 'activo'),
-(1, 2, '2024-12-11 11:00:00', 'Rm de hombro', 'Cancelado');
+(1, 1, '2026-12-10 09:00:00', 'Rm cerebro', 'activo'),
+(2, 2, '2026-12-10 10:30:00', 'Rm de columna', 'activo'),
+(3, 1, '2026-12-10 12:00:00', 'Rm de rodilla', 'activo'),
+(4, 3, '2026-12-11 09:00:00', 'Rm de abdomen', 'activo'),
+(1, 2, '2026-12-11 11:00:00', 'Rm de hombro', 'Cancelado');
 
 6. **Configurar la conexión a la base de datos**:
 
