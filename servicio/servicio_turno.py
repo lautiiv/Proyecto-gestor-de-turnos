@@ -177,5 +177,32 @@ class Servicio_Turnos:
             pass
         
     def nombre_equipo(self, id_equipo):
-        nombre_equipo = self.dao.nombre_equipo(id_equipo)
-        return self.nombre_equipo
+        nombre_resonador = self.dao.nombre_equipo(id_equipo)
+        return nombre_resonador
+    
+    def reprogramar_turno(self, id_turno, nueva_fecha_hora, id_nuevo_resonador):
+        
+        #Validaciones para fecha_hora
+        
+        if not nueva_fecha_hora:
+            raise ValueError("No puede estar vacia la fecha y hora")
+        
+        if nueva_fecha_hora < datetime.now():
+            raise ValueError("No puede registrarse el estudio en el pasado")
+        
+        hora = nueva_fecha_hora.time()
+        if hora.hour < 8 or hora.hour >=20:
+            raise ValueError("Los turnos solo pueden ser entre las 08:00 y 20:00hs")
+        
+        if nueva_fecha_hora.minute not in (0,30):
+            raise ValueError("Los estudios tienen que ser cada 30 minutos")
+        
+        self.validar_disponibilidad_horario(nueva_fecha_hora,id_nuevo_resonador)
+        
+        
+        actualizado = self.dao.actualizar_turno_dao(id_turno, nueva_fecha_hora, id_nuevo_resonador)        
+        
+        if actualizado == 0:
+            raise ValueError("No se pudo reprogramar el turno")
+        else:
+            return True

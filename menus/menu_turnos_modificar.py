@@ -65,6 +65,8 @@ def modificar_turno_segunda_parte(servicio,turno):
         
         elif menu_principal == 3:
             reprogramar_turno(servicio,turno)
+            print("\n==Informacion del nuevo turno==")
+            servicio.informacion_turno_por_id_turno(turno.id_turno)
         
         elif menu_principal == 0:
             break
@@ -93,9 +95,17 @@ def reprogramar_turno(servicio, turno: Turno):
            continue
        if confirmacion == 1:
             nombre_equipo = servicio.nombre_equipo(turno.id_resonador)
-            print(F'Fecha actual: {turno.fecha_hora}n\ Equipo actual: {nombre_equipo} ')
+            print(F'==Informacion actual del turno==\nFecha: {turno.fecha_hora}\nEquipo: {nombre_equipo} ')
             
-            pedir_nuevos_datos_turno(servicio,turno)
+            fecha_hora_nueva, resonador_nuevo = pedir_nuevos_datos_turno(servicio, turno)
+            
+            try:
+               actualizacion = servicio.reprogramar_turno(turno.id_turno,fecha_hora_nueva,resonador_nuevo)
+               if actualizacion:
+                    print("\nTurno actualizado con exito")
+                    return
+            except ValueError as e:
+                print(f'Error al reprogramar: {e}')
 
        elif confirmacion == 2:
            break
@@ -112,8 +122,8 @@ def pedir_nuevos_datos_turno(servicio, turno_actual):
             opcion = int(input('Ingrese una opcion: '))
         except ValueError:
             print("Ingrese una opcion valida (1-2-3-0)")
-        
-        
+            continue
+               
         if opcion == 1:
             print("Ingrese la nueva fecha")
             

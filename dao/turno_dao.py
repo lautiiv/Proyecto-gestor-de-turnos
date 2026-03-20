@@ -187,3 +187,15 @@ class TurnoDAO(TurnoDAO_Interfaz):
     
     def modificar_turno(self, turno):
         pass
+    
+    def actualizar_turno_dao(self, id_turno, nueva_fecha, nuevo_resonador):
+        with self.db_conn.connect_to_mysql() as conn:
+            try:
+                cursor = conn.cursor()
+                query = f'UPDATE {self.db_name}.turno SET fecha = %s, id_resonador = %s WHERE id_turno = %s'
+                cursor.execute(query,(nueva_fecha,nuevo_resonador,id_turno))
+                conn.commit()
+                lineas_afectadas = cursor.rowcount
+                return lineas_afectadas
+            except mysql.connector.Error as err:
+                raise err
