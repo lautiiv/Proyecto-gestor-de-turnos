@@ -279,10 +279,6 @@ de una manera adecuada. Permite refactorizar sin romper todo el proyecto.
 
 A mi profesora de Programación, Ivana Soledad Rojas Córsico, que me brindó contenido de excelente calidad para poder comprender todos los conocimientos aplicados en este proyecto. Su pasión por la enseñanza fue clave para que desarrolle este proyecto.
 
-A mi profesor de Bases de Datos, Iván Gerlero, que me brindó todo el conocimiento que hoy está aplicado en este proyecto en lo relacionado a la base de datos.
-
-A ambos gracias por explicarme las veces que hiciera falta, y por enseñarme que el software no es solo código, sino estructura, lógica y paciencia.
-
 **Autor**
 
 Lautaro Emanuel Villafañe - https://www.linkedin.com/in/lautarovillafa%C3%B1e/
